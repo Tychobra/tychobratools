@@ -27,3 +27,16 @@ hc_btn_options <- function() {
     )
   )
 }
+
+#' hc_global_options
+#'
+#' Alters `highcharter` global options
+#'
+#' Currently only change thousands separator from space to comma
+#'
+#' @export
+hc_global_options <- function() {
+  hcoptslang <- getOption("highcharter.lang")
+  hcoptslang$thousandsSep <- ","
+  options(highcharter.lang = hcoptslang)
+}
