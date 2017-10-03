@@ -3,6 +3,19 @@
 #' options to only include specific download buttons in the highcharter download button
 #'
 #' @export
+#'
+#' @examples
+#' library(highcharter)
+#'
+#' # must be opened in a browser to work
+#' hchart(rnorm(100)) %>%
+#'   hc_exporting(
+#'     enabled = TRUE,
+#'     filename = "example-file",
+#'     formAttributes = list(target = "_blank"),
+#'     buttons = hc_btn_options()
+#'   )
+#'
 hc_btn_options <- function() {
   list(
     contextButton = list(
@@ -10,17 +23,23 @@ hc_btn_options <- function() {
         list(
           text = "Export to PDF",
           onclick = JS(
-            "function () { this.exportChart({
-              type: 'application/pdf'
-            }); }"
+            "function () {
+              this.exportChart({
+                type: 'application/pdf'
+              });
+            }"
           )
         ),
         list(
-          text = "Export to SVG",
+          text = "Export to PNG",
           onclick = JS(
-            "function () { this.exportChart({
-              type: 'image/svg+xml'
-            }); }"
+            "function () {
+              this.exportChart(null, {
+                chart: {
+                  backgroundColor: '#FFFFFF'
+                },
+              });
+            }"
           )
         )
       )
