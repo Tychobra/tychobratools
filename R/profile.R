@@ -1,0 +1,57 @@
+#' profile_icon
+#'
+#' server logic for placing profile icon in header bar of shinydashboard.  Should be called without
+#' any arguments
+#'
+#' @param input no value needed for thos arguement
+#' @param output no value needed for this arguement
+#' @param session no value needed for this arguement
+#'
+#' @export
+profile_icon <- function(input, output, session) {
+  output$auth_user <- renderText({
+    if (is.null(session$user)) {
+      "Guest"
+    } else {
+      session$user
+    }
+  })
+}
+
+#' profile_icon_ui
+#'
+#' ui code for `profile_icon`. Should be placed in the the `header` arguement to
+#' `dashboardPage()`
+#'
+#' @param id character string identifying the module
+#'
+#' @export
+profile_icon_ui <- function(id) {
+  ns <- NS(id)
+
+  tags$li(
+    class = "dropdown",
+    tags$a(
+      href="#",
+      class = "dropdown-toggle",
+      `data-toggle` = "dropdown",
+      tags$i(
+        class = "fa fa-user"
+      )
+    ),
+    tags$ul(
+      class = "dropdown-menu",
+      tags$li(
+        textOutput(ns("auth_user")),
+        style='padding: 3px 20px;'
+      ),
+      tags$li(
+        a(
+          icon("sign-out"),
+          "Logout",
+          href="__logout__"
+        )
+      )
+    )
+  )
+}
