@@ -1,7 +1,6 @@
 #' profile_icon
 #'
-#' server logic for placing profile icon in header bar of shinydashboard.  Should be called without
-#' any arguments
+#' server logic for placing profile icon in header bar of shinydashboard.
 #'
 #' @param input no value needed for thos arguement
 #' @param output no value needed for this arguement
