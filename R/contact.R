@@ -15,6 +15,9 @@ contact_ui <- function(contacts = list(
     )
   )
 ) {
+
+  len <- length(contacts)
+
   htmltools::tags$li(
     class = "dropdown",
     tags$a(
@@ -55,7 +58,7 @@ contact_ui <- function(contacts = list(
               contact_info$phone
             )
           ),
-          br(),
+          #br(),
           hr()
         )
       })
