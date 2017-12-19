@@ -54,7 +54,8 @@ contact_ui <- function(contacts = list(
               href = "#",
               contact_info$phone
             )
-          )
+          ),
+          br()
         )
       })
     )
