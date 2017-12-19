@@ -55,7 +55,8 @@ contact_ui <- function(contacts = list(
               contact_info$phone
             )
           ),
-          br()
+          br(),
+          hr()
         )
       })
     )
