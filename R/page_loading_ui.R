@@ -10,7 +10,7 @@
 #' @return html shiny.tag
 #'
 page_loading_ui <- function() {
-  shiny::addResourcePath("tychobratools", system.file("srccss", package = "tychobratools"))
+  shiny::addResourcePath("tychobratools-loading", system.file("srccss", package = "tychobratools"))
 
   tags$div(
     id="floatingCirclesG",
