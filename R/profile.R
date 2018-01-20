@@ -5,15 +5,18 @@
 #' @param input no value needed for thos arguement
 #' @param output no value needed for this arguement
 #' @param session no value needed for this arguement
+#' @param user optional user to override session$user
 #'
 #' @export
-profile_icon <- function(input, output, session) {
+profile_icon <- function(input, output, session, user = NULL) {
   output$auth_user <- renderText({
-    if (is.null(session$user)) {
-      "Guest"
-    } else {
+    out <- "Guest"
+    if (!is.null(user)) {
+      out <- user
+    } else if (!is.null(session$user)) {
       session$user
     }
+    out
   })
 }
 
