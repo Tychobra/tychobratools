@@ -4,7 +4,7 @@
 \alias{profile_icon}
 \title{profile_icon}
 \usage{
-profile_icon(input, output, session)
+profile_icon(input, output, session, user = NULL)
 }
 \arguments{
 \item{input}{no value needed for thos arguement}
@@ -12,6 +12,8 @@ profile_icon(input, output, session)
 \item{output}{no value needed for this arguement}
 
 \item{session}{no value needed for this arguement}
+
+\item{user}{optional reactive value representing user to override session$user}
 }
 \description{
 server logic for placing profile icon in header bar of shinydashboard.
