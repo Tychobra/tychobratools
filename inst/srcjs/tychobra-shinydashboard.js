@@ -4,10 +4,10 @@ $(function() {
   $el2.addClass("sidebar-mini");
 
 
-  var $sidebarInput = $("#val_date");
+  //var $sidebarInput = $("#val_date");
   var $logo = $(".logo");
   $(".sidebar-toggle").click(function() {
-    $sidebarInput.toggle(400);
+    //$sidebarInput.toggle(400);
     $logo.toggle(400);
   });
 });
