@@ -4,7 +4,11 @@
 \alias{use_tychobra_js}
 \title{use_tychobra_js}
 \usage{
-use_tychobra_js()
+use_tychobra_js(show_window_icon = TRUE)
+}
+\arguments{
+\item{show_window_icon}{boolean that deafults to `TRUE`.  Determines whether or
+not to show Tychobra logo icon in browser tab}
 }
 \description{
 function to load some custom js \code{shiny} and \code{shinydashboard} apps
