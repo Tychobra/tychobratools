@@ -59,3 +59,24 @@ hc_global_options <- function() {
   hcoptslang$thousandsSep <- ","
   options(highcharter.lang = hcoptslang)
 }
+
+
+#' hc_colors
+#'
+#' @return a character vector of the hex for Highcharts colors
+#'
+#' @export
+hc_colors <- function() {
+  c(
+    "#7cb5ec",
+    "#434348",
+    "#90ed7d",
+    "#f7a35c",
+    "#8085e9",
+    "#f15c80",
+    "#e4d354",
+    "#2b908f",
+    "#f45b5b",
+    "#91e8e1"
+  )
+}
