@@ -61,12 +61,12 @@ hc_global_options <- function() {
 }
 
 
-#' hc_colors
+#' hc_default_colors
 #'
 #' @return a character vector of the hex for Highcharts colors
 #'
 #' @export
-hc_colors <- function() {
+hc_default_colors <- function() {
   c(
     "#7cb5ec",
     "#434348",
