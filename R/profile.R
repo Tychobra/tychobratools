@@ -117,7 +117,6 @@ profile_icon_cloud <- function(input, output, session, user = NULL) {
 
   observeEvent(user(), {
 
-    print(list("user" = user()))
     if (is.null(user())) {
       shinyjs::hide("id")
     } else {
