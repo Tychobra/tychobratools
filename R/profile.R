@@ -27,6 +27,7 @@ profile_icon <- function(input, output, session, user = NULL) {
 #'
 #' @param id character string identifying the module
 #'
+#'
 #' @export
 profile_icon_ui <- function(id) {
   ns <- NS(id)
@@ -66,11 +67,14 @@ profile_icon_ui <- function(id) {
 #'
 #' @param id character string identifying the module
 #'
+#' @import shinyjs
+#'
 #' @export
 profile_icon_cloud_ui <- function(id) {
   ns <- NS(id)
 
-  tags$li(
+  shinyjs::hidden(tags$li(
+    id = ns("id"),
     class = "dropdown",
     tags$a(
       href="#",
@@ -89,11 +93,43 @@ profile_icon_cloud_ui <- function(id) {
       tags$li(
         a(
           icon("sign-out"),
-          "Logout",
+          "Sign Out",
           href="#",
-          id = "logout_button"
+          id = "submit_sign_out"
         )
       )
     )
-  )
+  ))
+}
+
+#' profile_icon_cloud
+#'
+#' server logic for placing profile icon in header bar of shinydashboard.
+#'
+#' @param input no value needed for thos arguement
+#' @param output no value needed for this arguement
+#' @param session no value needed for this arguement
+#' @param user optional reactive value representing user to override session$user
+#'
+#' @export
+profile_icon_cloud <- function(input, output, session, user = NULL) {
+  ns <- session$ns
+
+  observeEvent(user(), {
+
+    print(list("user" = user()))
+    if (is.null(user())) {
+      shinyjs::hide("id")
+    } else {
+      shinyjs::show("id")
+    }
+
+  }, ignoreNULL = FALSE)
+
+
+
+  output$auth_user <- renderText({
+    req(user())
+    user()
+  })
 }
