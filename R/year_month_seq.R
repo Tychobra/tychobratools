@@ -9,6 +9,8 @@
 #'
 #' @import lubridate
 #'
+#' @export
+#'
 #' @examples
 #' start <- as.Date("2018-01-07")
 #' end <- as.Date("2018-03-01")

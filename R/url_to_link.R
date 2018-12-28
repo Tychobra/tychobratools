@@ -9,6 +9,8 @@
 #'
 #' @return the html for the link
 #'
+#' @export
+#'
 #' @examples
 #' url_to_link("https://tychobra.com/howdy")
 #'
