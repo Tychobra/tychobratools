@@ -1,7 +1,7 @@
 Package: tychobratools
 Type: Package
 Title: Some customizations for R and Shiny
-Version: 0.0.0.9009
+Version: 0.0.0.9010
 Author: person("Andy", "Merlino", email = "andy.merlino@tychobra.com", role = c("aut", "cre"))
 Maintainer: Andy Merlino <andy.merlino@tychobra.com>
 Description: More about what it does (maybe more than one line)
@@ -12,5 +12,6 @@ LazyData: true
 Imports:
     shiny,
     shinyjs,
-    htmltools
+    htmltools,
+    lubridate
 RoxygenNote: 6.1.1

@@ -20,7 +20,7 @@ url_to_link <- function(url, base_link = TRUE) {
   }
 
 
-  link_out <- if_else(
+  link_out <- ifelse(
     is.na(link_name),
     NA_character_,
     paste0(
