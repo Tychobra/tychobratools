@@ -14,10 +14,12 @@ profile_icon <- function(input, output, session, user = NULL) {
     if (!is.null(user())) {
       out <- user()
     } else if (!is.null(session$user)) {
-      session$user
+      out <- session$user
     }
     out
   })
+
+  outputOptions(output, "auth_user", suspendWhenHidden = FALSE)
 }
 
 #' profile_icon_ui
@@ -131,4 +133,6 @@ profile_icon_cloud <- function(input, output, session, user = NULL) {
     req(user())
     user()
   })
+
+  outputOptions(output, "auth_user", suspendWhenHidden = FALSE)
 }
