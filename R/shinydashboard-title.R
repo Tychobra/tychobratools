@@ -14,7 +14,7 @@ tychobra_title <- function(title) {
         htmltools::tags$a(
           href = "https://tychobra.com",
           htmltools::tags$img(
-            src="https://res.cloudinary.com/dxqnb8xjb/image/upload/v1509563497/tychobra-logo-blue_dacbnz.svg",
+            src="https://res.cloudinary.com/dxqnb8xjb/image/upload/v1510505618/tychobra-logo-blue_d2k9vt.png",
             height = '50px',
             alt='Tychobra Logo',
             style='margin-top: -20px; float: left;'
