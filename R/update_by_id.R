@@ -43,14 +43,14 @@ update_by_id <- function(conn, tbl_name, id, .dat) {
   sql_prep <- paste0(names(.dat), "=?", names(.dat))
 
   query <- sprintf(
-    "UPDATE ?__tbl_name__ SET %s WHERE id=?__id__;",
+    "UPDATE %s SET %s WHERE id=?__id__;",
+    tbl_name,
     paste(sql_prep, collapse = ", ")
   )
 
   dat_list <- lapply(.dat, as.character)
 
   id_list <- c(
-    "__tbl_name__" = tbl_name,
     "__id__" = id
   )
 

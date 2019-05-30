@@ -27,7 +27,7 @@
 #'   )
 #' )
 #'
-#' delete_by_id(con, "test", id = 1)
+#' delete_by_id(con, "test", id = "1")
 #'
 #' DBI::dbDisconnect(con)
 #'
@@ -35,10 +35,9 @@ delete_by_id <- function(conn, tbl_name, id) {
   stopifnot(length(id) == 1)
   stopifnot(length(tbl_name) == 1 && is.character(tbl_name))
 
-  query <- "DELETE FROM ?__tbl_name__ WHERE id=?__id__"
+  query <- paste0("DELETE FROM ", tbl_name, " WHERE id=?__id__")
 
   dat_list <- c(
-    "__tbl_name__" = tbl_name,
     "__id__" = id
   )
 
