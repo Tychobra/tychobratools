@@ -36,17 +36,28 @@
 #' DBI::dbDisconnect(con)
 #'
 update_by_id <- function(conn, tbl_name, id, .dat) {
+  stopifnot(length(id) == 1)
+  stopifnot(length(tbl_name) == 1 && is.character(tbl_name))
+
 
   sql_prep <- paste0(names(.dat), "=?", names(.dat))
 
   query <- sprintf(
-    "UPDATE %s SET %s WHERE id=%s;",
-    tbl_name,
-    paste(sql_prep, collapse = ", "),
-    id
+    "UPDATE ?__tbl_name__ SET %s WHERE id=?__id__;",
+    paste(sql_prep, collapse = ", ")
   )
 
   dat_list <- lapply(.dat, as.character)
+
+  id_list <- c(
+    "__tbl_name__" = tbl_name,
+    "__id__" = id
+  )
+
+  dat_list <- c(
+    dat_list,
+    id_list
+  )
 
   # protect against SQL injection
   query <- DBI::sqlInterpolate(

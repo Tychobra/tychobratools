@@ -32,8 +32,22 @@
 #' DBI::dbDisconnect(con)
 #'
 delete_by_id <- function(conn, tbl_name, id) {
+  stopifnot(length(id) == 1)
+  stopifnot(length(tbl_name) == 1 && is.character(tbl_name))
 
-  query <- paste0("DELETE FROM ", tbl_name, " WHERE id=", id)
+  query <- "DELETE FROM ?__tbl_name__ WHERE id=?__id__"
+
+  dat_list <- c(
+    "__tbl_name__" = tbl_name,
+    "__id__" = id
+  )
+
+  # protect against SQL injection
+  query <- DBI::sqlInterpolate(
+    conn = conn,
+    sql = query,
+    .dots = dat_list
+  )
 
   rows_affected <- DBI::dbExecute(conn, query)
 
