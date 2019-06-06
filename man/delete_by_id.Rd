@@ -34,7 +34,7 @@ DBI::dbWriteTable(
   )
 )
 
-delete_by_id(con, "test", id = 1)
+delete_by_id(con, "test", id = "1")
 
 DBI::dbDisconnect(con)
 
