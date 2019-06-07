@@ -2,6 +2,7 @@
 
 export(add_row)
 export(contact_ui)
+export(convert_column_names)
 export(delete_by_id)
 export(hc_btn_options)
 export(hc_default_colors)
