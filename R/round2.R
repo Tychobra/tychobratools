@@ -5,6 +5,8 @@
 #' 
 #' @return The number rounded to the nearest integer where .5 is always rounded up
 #'
+#' @export
+#'
 #' @examples
 #' x <- 2.3
 #' n <- 0
