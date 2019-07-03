@@ -2,7 +2,13 @@
 #' a data frame
 #' 
 #' @param old_names The column names of a data frame
-#' @param names_map A data frame with columns "names" and "display names"
+#' @param names_map A data frame with 2 columns: 
+#' 
+#' \itemize{
+#'   \item names: the name of the column in the code
+#'   \item display_names: the column name to display to the user
+#' }
+#' 
 #' 
 #' @return The names where every old name in names is replaced with its cooresponding
 #' display name

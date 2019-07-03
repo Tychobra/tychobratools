@@ -6,6 +6,11 @@
 \usage{
 round2(x, n)
 }
+\arguments{
+\item{x}{Number to be rounded}
+
+\item{n}{Decimal places to be rounded to}
+}
 \value{
 The number rounded to the nearest integer where .5 is always rounded up
 }

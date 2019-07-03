@@ -1,7 +1,7 @@
 #' Standard rounding rather than R's round function which uses bankers rounding
 #'
-#' @params x Number to be rounded
-#' @params x Decimal places to be rounded to
+#' @param x Number to be rounded
+#' @param n Decimal places to be rounded to
 #' 
 #' @return The number rounded to the nearest integer where .5 is always rounded up
 #'
