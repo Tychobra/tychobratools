@@ -25,13 +25,17 @@
 #'     data_col = rep("hi", times = 2)
 #'   )
 #' )
-#'
+#' 
+#' test <- collect(tbl(con, "test")) 
+#' 
 #' test_dat <- list(
 #'   id = 3,
 #'   data_col = "hello"
 #' )
 #'
 #' add_row(con, "test", .dat = test_dat)
+#' 
+#' test <- collect(tbl(con, "test")) 
 #'
 #' DBI::dbDisconnect(con)
 #'
@@ -40,12 +44,21 @@ add_row <- function(conn, tbl_name, .dat, verbose = FALSE) {
   if (verbose == TRUE) {
     message(paste0("[ add row to table ", tbl_name, "] "), .dat)
   }
-
+  
+  .dat <- lapply(.dat, DBI::dbQuoteLiteral, conn = conn)
+  
   query <- sprintf(
     "INSERT INTO %s (%s) VALUES (%s);",
     tbl_name,
     paste(names(.dat), collapse = ", "),
     paste0("?", names(.dat), collapse = ", ")
+  )
+  
+  # protect against SQL injection
+  query <- DBI::sqlInterpolate(
+    conn = conn,
+    sql = query,
+    .dots = .dat
   )
 
   dat_list <- lapply(.dat, as.character)
