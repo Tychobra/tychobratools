@@ -26,38 +26,71 @@
 #'     data_col = rep("hi", times = 2)
 #'   )
 #' )
+#' 
+#' test <- collect(tbl(con, "test")) 
 #'
 #' test_dat <- list(
 #'   data_col = "hello"
 #' )
 #'
-#' update_by_id(con, "test", id = 1, .dat = test_dat)
-#'
+#' update_by(con, "test", by = list(id = 1), .dat = test_dat)
+#' 
+#' test <- collect(tbl(con, "test")) 
+#' 
 #' DBI::dbDisconnect(con)
+#' 
+#' 
+#' con <- DBI::dbConnect(
+#'   RSQLite::SQLite(),
+#'   dbname = ":memory:"
+#' )
 #'
-update_by_id <- function(conn, tbl_name, id, .dat) {
-  stopifnot(length(id) == 1)
+#' DBI::dbWriteTable(
+#'   con,
+#'   name = "test",
+#'   value = data.frame(
+#'     id = c(1,2,1,1,2),
+#'     uid = c(1,2,1,2,1),
+#'     data_col = rep("hi", times = 5)
+#'   )
+#' )
+#' 
+#' test <- collect(tbl(con, "test")) 
+#'
+#' test_dat <- list(
+#'   data_col = "hello"
+#' )
+#' 
+#' update_by(con, "test", by = list(id = 1, uid = 1), .dat = test_dat)
+#' 
+#' test <- collect(tbl(con, "test")) 
+#' 
+#' DBI::dbDisconnect(con)
+#' 
+#'
+update_by <- function(conn, tbl_name, by, .dat) {
+  stopifnot(length(id) > 0)
   stopifnot(length(tbl_name) == 1 && is.character(tbl_name))
-
+  
+  #.dat <- lapply(.dat, DBI::dbQuoteLiteral, conn = conn)
 
   sql_prep <- paste0(names(.dat), "=?", names(.dat))
+  sql_where_prep <- paste0(names(by), "=?", names(by))
 
   query <- sprintf(
-    "UPDATE %s SET %s WHERE id=?__id__;",
+    "UPDATE %s SET %s WHERE %s;",
     tbl_name,
-    paste(sql_prep, collapse = ", ")
+    paste(sql_prep, collapse = ", "),
+    paste(sql_where_prep, collapse = " AND ")
   )
-
-  dat_list <- lapply(.dat, as.character)
-
-  id_list <- c(
-    "__id__" = id
-  )
-
+  print(query)
   dat_list <- c(
-    dat_list,
-    id_list
+    .dat,
+    by
   )
+  
+  dat_list <- lapply(dat_list, DBI::dbQuoteLiteral, conn = conn)
+  print(dat_list)
 
   # protect against SQL injection
   query <- DBI::sqlInterpolate(
