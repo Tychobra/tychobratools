@@ -26,20 +26,52 @@
 #'     data_col = rep("hi", times = 2)
 #'   )
 #' )
+#' 
+#' test <- collect(tbl(con, "test"))
 #'
-#' delete_by_id(con, "test", id = "1")
+#' delete_by(con, "test", by = list(id = "1"))
+#' 
+#' test <- collect(tbl(con, "test"))
 #'
 #' DBI::dbDisconnect(con)
+#' 
 #'
-delete_by_id <- function(conn, tbl_name, id) {
-  stopifnot(length(id) == 1)
+#'
+#' con <- DBI::dbConnect(
+#'   RSQLite::SQLite(),
+#'   dbname = ":memory:"
+#' )
+#'
+#' DBI::dbWriteTable(
+#'   con,
+#'   name = "test",
+#'   value = data.frame(
+#'     id = c(1,1,1,2,2),
+#'     uid = c(1,2,1,1,2),
+#'     data_col = rep("hi", times = 5)
+#'   )
+#' )
+#' 
+#' test <- collect(tbl(con, "test"))
+#'
+#' delete_by(con, "test", by = list(id = "1", uid = "1"))
+#' 
+#' test <- collect(tbl(con, "test"))
+#'
+#' DBI::dbDisconnect(con)
+delete_by <- function(conn, tbl_name, by) {
+  stopifnot(length(by) > 0)
   stopifnot(length(tbl_name) == 1 && is.character(tbl_name))
 
-  query <- paste0("DELETE FROM ", tbl_name, " WHERE id=?__id__")
-
-  dat_list <- c(
-    "__id__" = id
+  sql_prep <- paste0(names(by), "=?", names(by))
+  
+  query <- sprintf(
+    "DELETE FROM %s WHERE %s;",
+    tbl_name,
+    paste(sql_prep, collapse = " AND ")
   )
+
+  dat_list <- lapply(by, DBI::dbQuoteLiteral, conn = conn)
 
   # protect against SQL injection
   query <- DBI::sqlInterpolate(
