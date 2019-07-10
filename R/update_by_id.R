@@ -65,12 +65,18 @@
 #' 
 #' test <- collect(tbl(con, "test")) 
 #' 
+#' update_by(con, "test", by = list(id = 1, uid = 1), .dat = test_dat, operator = "or")
+#' 
+#' test <- collect(tbl(con, "test")) 
+#' 
 #' DBI::dbDisconnect(con)
 #' 
 #'
-update_by <- function(conn, tbl_name, by, .dat) {
+update_by <- function(conn, tbl_name, by, .dat, operator = "AND") {
   stopifnot(length(id) > 0)
   stopifnot(length(tbl_name) == 1 && is.character(tbl_name))
+  operator <- toupper(operator)
+  stopifnot(operator %in% c("AND", "OR"))
   
   #.dat <- lapply(.dat, DBI::dbQuoteLiteral, conn = conn)
 
@@ -81,16 +87,15 @@ update_by <- function(conn, tbl_name, by, .dat) {
     "UPDATE %s SET %s WHERE %s;",
     tbl_name,
     paste(sql_prep, collapse = ", "),
-    paste(sql_where_prep, collapse = " AND ")
+    paste(sql_where_prep, collapse = paste0(" ", operator, " "))
   )
-  print(query)
+  
   dat_list <- c(
     .dat,
     by
   )
   
   dat_list <- lapply(dat_list, DBI::dbQuoteLiteral, conn = conn)
-  print(dat_list)
 
   # protect against SQL injection
   query <- DBI::sqlInterpolate(
