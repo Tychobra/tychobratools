@@ -8,7 +8,12 @@ a data frame}
 convert_column_names(names_vector, names_map)
 }
 \arguments{
-\item{names_map}{A data frame with columns "names" and "display names"}
+\item{names_map}{A data frame with 2 columns: 
+
+\itemize{
+  \item names: the name of the column in the code
+  \item display_names: the column name to display to the user
+}}
 
 \item{old_names}{The column names of a data frame}
 }
