@@ -1,10 +1,12 @@
-#' delete_by_id
+#' delete_by
 #'
 #' Delete a row from a table by the row id
 #'
 #' @param conn the DBI connection
 #' @param tbl_name the name of the table
 #' @param id the row id
+#' @param operator Either "AND" or "OR", determines whether the SQL query updates
+#' all rows that match all of by or at least one element of by
 #'
 #' @import DBI
 #'

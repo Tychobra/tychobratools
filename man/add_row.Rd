@@ -35,12 +35,16 @@ DBI::dbWriteTable(
   )
 )
 
+test <- collect(tbl(con, "test")) 
+
 test_dat <- list(
   id = 3,
   data_col = "hello"
 )
 
 add_row(con, "test", .dat = test_dat)
+
+test <- collect(tbl(con, "test")) 
 
 DBI::dbDisconnect(con)
 
