@@ -8,13 +8,13 @@ rebuild <- function() {
   devtools::build()
   devtools::install()
   
-  .rs.restartR()
-  
   invisible(lapply(
     paste0('package:', names(sessionInfo()$otherPkgs)),
     detach,
     character.only=TRUE,
     unload=TRUE)
   )
+  
+  .rs.restartR()
 }
 
