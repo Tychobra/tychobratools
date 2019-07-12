@@ -14,5 +14,6 @@ Imports:
     shinyjs,
     htmltools,
     lubridate,
-    DBI
+    DBI,
+    devtools
 RoxygenNote: 6.1.1
