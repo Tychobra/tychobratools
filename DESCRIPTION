@@ -15,5 +15,6 @@ Imports:
     htmltools,
     lubridate,
     DBI,
-    devtools
+    devtools,
+    RPostgres
 RoxygenNote: 6.1.1
