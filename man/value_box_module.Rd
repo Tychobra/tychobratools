@@ -6,6 +6,11 @@
 \usage{
 value_box_module(input, output, server, value, subtitle)
 }
+\arguments{
+\item{value}{The value to be displayed in the value box}
+
+\item{subtitle}{The subtitle to be displayed in the value box}
+}
 \description{
 value_box_module
 }

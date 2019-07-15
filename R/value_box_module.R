@@ -43,6 +43,9 @@ value_box_module_ui <- function(id, icon = NULL, backgroundColor = "#7cb5ec", te
 
 #' value_box_module
 #' 
+#' @param value The value to be displayed in the value box
+#' @param subtitle The subtitle to be displayed in the value box
+#' 
 #' @export
 #' 
 value_box_module <- function(input, output, server, value, subtitle) {
