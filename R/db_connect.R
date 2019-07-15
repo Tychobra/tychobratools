@@ -6,6 +6,8 @@
 #'
 #' @import RPostgres
 #' @import DBI
+#' 
+#' @export
 #'
 #' @return a DBIConnect object
 #'
