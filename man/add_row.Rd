@@ -35,7 +35,7 @@ DBI::dbWriteTable(
   )
 )
 
-test <- collect(tbl(con, "test")) 
+test <- dplyr::collect(dplyr::tbl(con, "test")) 
 
 test_dat <- list(
   id = 3,
@@ -44,7 +44,7 @@ test_dat <- list(
 
 add_row(con, "test", .dat = test_dat)
 
-test <- collect(tbl(con, "test")) 
+test <- dplyr::collect(dplyr::tbl(con, "test")) 
 
 DBI::dbDisconnect(con)
 

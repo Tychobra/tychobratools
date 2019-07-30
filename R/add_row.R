@@ -26,7 +26,7 @@
 #'   )
 #' )
 #' 
-#' test <- collect(tbl(con, "test")) 
+#' test <- dplyr::collect(dplyr::tbl(con, "test")) 
 #' 
 #' test_dat <- list(
 #'   id = 3,
@@ -35,7 +35,7 @@
 #'
 #' add_row(con, "test", .dat = test_dat)
 #' 
-#' test <- collect(tbl(con, "test")) 
+#' test <- dplyr::collect(dplyr::tbl(con, "test")) 
 #'
 #' DBI::dbDisconnect(con)
 #'
@@ -54,13 +54,6 @@ add_row <- function(conn, tbl_name, .dat, verbose = FALSE) {
     paste0("?", names(.dat), collapse = ", ")
   )
   
-  # protect against SQL injection
-  query <- DBI::sqlInterpolate(
-    conn = conn,
-    sql = query,
-    .dots = .dat
-  )
-
   dat_list <- lapply(.dat, as.character)
 
   if (verbose == TRUE) {
