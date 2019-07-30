@@ -54,18 +54,26 @@ add_row <- function(conn, tbl_name, .dat, verbose = FALSE) {
     paste0("?", names(.dat), collapse = ", ")
   )
   
-  dat_list <- lapply(.dat, as.character)
+  #dat_list <- lapply(.dat, as.character)
 
   if (verbose == TRUE) {
-    message("[ query pre escaping ] ", dat_list)
+    message("[ query pre escaping ] ", .dat 
+            #dat_list
+            )
   }
-
-  # protect against SQL injection
+  
   query <- DBI::sqlInterpolate(
     conn = conn,
     sql = query,
-    .dots = dat_list
+    .dots = .dat
   )
+
+  # protect against SQL injection
+  # query <- DBI::sqlInterpolate(
+  #   conn = conn,
+  #   sql = query,
+  #   .dots = dat_list
+  # )
 
   if (verbose == TRUE) {
     message("[ query post escaping ] ", query)
