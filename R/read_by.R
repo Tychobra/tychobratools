@@ -1,12 +1,13 @@
-#' delete_by
+#' read_by
 #'
-#' Delete a row from a table by the row id
+#' Get rows from a table by values in its columns
 #'
 #' @param conn the DBI connection
 #' @param tbl_name the name of the table
-#' @param by A named list of the field names and values to determine the rows to be deleted
-#' @param operator Either "AND" or "OR", determines whether the SQL query deletes
-#' all rows that match all of by or at least one element of by
+#' @param cols The columns to select from the table
+#' @param by A named list of the field names and values to determine which rows to read
+#' @param operator Either "AND" or "OR", determines whether the SQL query selects
+#' the rows that match all of by or just at least one element of by
 #'
 #' @import DBI
 #'
@@ -29,11 +30,9 @@
 #'   )
 #' )
 #' 
-#' test <- dplyr::collect(dplyr::tbl(con, "test"))
+#' dplyr::collect(dplyr::tbl(con, "test"))
 #'
-#' delete_by(con, "test", by = list(id = "1"))
-#' 
-#' test <- dplyr::collect(dplyr::tbl(con, "test"))
+#' read_by(con, "test", by = list(id = "1"))
 #'
 #' DBI::dbDisconnect(con)
 #' 
@@ -54,42 +53,42 @@
 #'   )
 #' )
 #' 
-#' test <- dplyr::collect(dplyr::tbl(con, "test"))
+#' dplyr::collect(dplyr::tbl(con, "test"))
 #'
-#' delete_by(con, "test", by = list(id = "1", uid = "1"))
+#' read_by(con, "test", by = list(id = "1", uid = "1"))
 #' 
-#' test <- dplyr::collect(dplyr::tbl(con, "test"))
+#' read_by(con, "test", by = list(id = "1", uid = "1"), operator = "Or")
 #' 
-#' delete_by(con, "test", by = list(id = "1", uid = "1"), operator = "Or")
+#' read_by(con, "test", cols = "data_col", by = list(id = "1", uid = "1"))
 #' 
-#' test <- dplyr::collect(dplyr::tbl(con, "test"))
+#' read_by(con, "test", cols = c("uid", "data_col"), by = list(id = "1", uid = "1"))
 #'
 #' DBI::dbDisconnect(con)
-delete_by <- function(conn, tbl_name, by, operator = "AND") {
+read_by <- function(conn, tbl_name, cols = "*", by, operator = "AND") {
   stopifnot(length(by) > 0)
+  stopifnot(length(cols) > 0)
   stopifnot(length(tbl_name) == 1 && is.character(tbl_name))
   operator <- toupper(operator)
   stopifnot(operator %in% c("AND", "OR"))
-
+  
+  sql_cols_prep <- paste(cols, collapse = ", ")
   sql_prep <- paste0(names(by), "=?", names(by))
   
   query <- sprintf(
-    "DELETE FROM %s WHERE %s;",
+    "SELECT %s FROM %s WHERE %s;",
+    sql_cols_prep,
     tbl_name,
     paste(sql_prep, collapse = paste0(" ", operator, " "))
   )
-
+  
   dat_list <- lapply(by, DBI::dbQuoteLiteral, conn = conn)
-
+  
   # protect against SQL injection
   query <- DBI::sqlInterpolate(
     conn = conn,
     sql = query,
     .dots = dat_list
   )
-
-  rows_affected <- DBI::dbExecute(conn, query)
-
-  rows_affected
+  
+  DBI::dbGetQuery(conn, query)
 }
-

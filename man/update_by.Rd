@@ -11,7 +11,7 @@ update_by(conn, tbl_name, by, .dat, operator = "AND")
 
 \item{tbl_name}{the name of the table}
 
-\item{by}{A list of the field names and values to be updated}
+\item{by}{A named list of the field names and values to determine the rows to be updated}
 
 \item{.dat}{a named list where the name is the database table field name and
 each value is of length 1 and is the value to be updated}

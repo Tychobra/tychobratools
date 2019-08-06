@@ -11,10 +11,10 @@ delete_by(conn, tbl_name, by, operator = "AND")
 
 \item{tbl_name}{the name of the table}
 
-\item{operator}{Either "AND" or "OR", determines whether the SQL query updates
-all rows that match all of by or at least one element of by}
+\item{by}{A named list of the field names and values to determine the rows to be deleted}
 
-\item{id}{the row id}
+\item{operator}{Either "AND" or "OR", determines whether the SQL query deletes
+all rows that match all of by or at least one element of by}
 }
 \value{
 the number of rows affected or an error. This value should be 1, 0, or the error
@@ -37,11 +37,11 @@ DBI::dbWriteTable(
   )
 )
 
-test <- collect(tbl(con, "test"))
+test <- dplyr::collect(dplyr::tbl(con, "test"))
 
 delete_by(con, "test", by = list(id = "1"))
 
-test <- collect(tbl(con, "test"))
+test <- dplyr::collect(dplyr::tbl(con, "test"))
 
 DBI::dbDisconnect(con)
 
@@ -62,15 +62,15 @@ DBI::dbWriteTable(
   )
 )
 
-test <- collect(tbl(con, "test"))
+test <- dplyr::collect(dplyr::tbl(con, "test"))
 
 delete_by(con, "test", by = list(id = "1", uid = "1"))
 
-test <- collect(tbl(con, "test"))
+test <- dplyr::collect(dplyr::tbl(con, "test"))
 
 delete_by(con, "test", by = list(id = "1", uid = "1"), operator = "Or")
 
-test <- collect(tbl(con, "test"))
+test <- dplyr::collect(dplyr::tbl(con, "test"))
 
 DBI::dbDisconnect(con)
 }
