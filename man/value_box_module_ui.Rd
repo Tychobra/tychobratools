@@ -5,7 +5,8 @@
 \title{value_box_module_ui}
 \usage{
 value_box_module_ui(id, icon = NULL, backgroundColor = "#7cb5ec",
-  textColor = "#FFF", width = 4, href = NULL)
+  textColor = "#FFF", width = 4, href = NULL, icon_color = rgb(0,
+  0, 0, 0.15))
 }
 \arguments{
 \item{icon}{An icon made by the shiny icon function}
@@ -17,6 +18,8 @@ value_box_module_ui(id, icon = NULL, backgroundColor = "#7cb5ec",
 \item{width}{A number between 1 and 12}
 
 \item{href}{A url}
+
+\item{icon_color}{A valid color string}
 }
 \description{
 value_box_module_ui
