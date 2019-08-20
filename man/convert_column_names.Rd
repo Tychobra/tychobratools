@@ -2,27 +2,28 @@
 % Please edit documentation in R/convert_column_names.R
 \name{convert_column_names}
 \alias{convert_column_names}
-\title{Convert values in a vector to their cooresponding values according to 
+\title{Convert values in a vector to their cooresponding values according to
 a data frame}
 \usage{
 convert_column_names(names_vector, names_map)
 }
 \arguments{
-\item{names_map}{A data frame with 2 columns: 
+\item{names_vector}{The column names of a data frame.  i.e. the character vector
+returned from calling `names()` on a data frame.}
+
+\item{names_map}{A data frame with 2 columns:
 
 \itemize{
   \item names: the name of the column in the code
   \item display_names: the column name to display to the user
 }}
-
-\item{old_names}{The column names of a data frame}
 }
 \value{
 The names where every old name in names is replaced with its cooresponding
 display name
 }
 \description{
-Convert values in a vector to their cooresponding values according to 
+Convert values in a vector to their cooresponding values according to
 a data frame
 }
 \examples{

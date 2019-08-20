@@ -4,6 +4,8 @@
 #'
 #' @export
 #'
+#' @importFrom htmlwidgets JS
+#'
 #' @examples
 #' library(highcharter)
 #'
@@ -22,7 +24,7 @@ hc_btn_options <- function() {
       menuItems = list(
         list(
           text = "Export to PDF",
-          onclick = JS(
+          onclick = htmlwidgets::JS(
             "function () {
               this.exportChart({
                 type: 'application/pdf'
@@ -32,7 +34,7 @@ hc_btn_options <- function() {
         ),
         list(
           text = "Export to PNG",
-          onclick = JS(
+          onclick = htmlwidgets::JS(
             "function () {
               this.exportChart(null, {
                 chart: {

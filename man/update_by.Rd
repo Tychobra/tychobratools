@@ -26,6 +26,8 @@ the number of rows affected or an error
 update a row in a table
 }
 \examples{
+library(dplyr)
+
 con <- DBI::dbConnect(
   RSQLite::SQLite(),
   dbname = ":memory:"
@@ -40,7 +42,9 @@ DBI::dbWriteTable(
   )
 )
 
-test <- collect(tbl(con, "test")) 
+test <- con \%>\%
+  tbl("test") \%>\%
+  collect()
 
 test_dat <- list(
   data_col = "hello"
@@ -48,7 +52,9 @@ test_dat <- list(
 
 update_by(con, "test", by = list(id = 1), .dat = test_dat)
 
-test <- collect(tbl(con, "test")) 
+test <- con \%>\%
+  tbl("test") \%>\%
+  collect()
 
 DBI::dbDisconnect(con)
 
@@ -68,7 +74,9 @@ DBI::dbWriteTable(
   )
 )
 
-test <- collect(tbl(con, "test")) 
+test <- con \%>\%
+  tbl("test") \%>\%
+  collect()
 
 test_dat <- list(
   data_col = "hello"
@@ -76,11 +84,15 @@ test_dat <- list(
 
 update_by(con, "test", by = list(id = 1, uid = 1), .dat = test_dat)
 
-test <- collect(tbl(con, "test")) 
+test <- con \%>\%
+  tbl("test") \%>\%
+  collect()
 
 update_by(con, "test", by = list(id = 1, uid = 1), .dat = test_dat, operator = "or")
 
-test <- collect(tbl(con, "test")) 
+test <- con \%>\%
+  tbl("test") \%>\%
+  collect()
 
 DBI::dbDisconnect(con)
 

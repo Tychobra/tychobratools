@@ -8,7 +8,7 @@ contact_ui(contacts = list(list(name = "Elon Musk", phone =
   "555-555-5555", email = "elon.musk@tychobra.com")))
 }
 \arguments{
-\item{contacts}{}
+\item{contacts}{list of contacts}
 }
 \description{
 ui for contact dropdown button in shinydashboard

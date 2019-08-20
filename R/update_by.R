@@ -15,6 +15,8 @@
 #' @export
 #'
 #' @examples
+#' library(dplyr)
+#'
 #' con <- DBI::dbConnect(
 #'   RSQLite::SQLite(),
 #'   dbname = ":memory:"
@@ -28,20 +30,24 @@
 #'     data_col = rep("hi", times = 2)
 #'   )
 #' )
-#' 
-#' test <- collect(tbl(con, "test")) 
+#'
+#' test <- con %>%
+#'   tbl("test") %>%
+#'   collect()
 #'
 #' test_dat <- list(
 #'   data_col = "hello"
 #' )
 #'
 #' update_by(con, "test", by = list(id = 1), .dat = test_dat)
-#' 
-#' test <- collect(tbl(con, "test")) 
-#' 
+#'
+#' test <- con %>%
+#'   tbl("test") %>%
+#'   collect()
+#'
 #' DBI::dbDisconnect(con)
-#' 
-#' 
+#'
+#'
 #' con <- DBI::dbConnect(
 #'   RSQLite::SQLite(),
 #'   dbname = ":memory:"
@@ -56,31 +62,35 @@
 #'     data_col = rep("hi", times = 5)
 #'   )
 #' )
-#' 
-#' test <- collect(tbl(con, "test")) 
+#'
+#' test <- con %>%
+#'   tbl("test") %>%
+#'   collect()
 #'
 #' test_dat <- list(
 #'   data_col = "hello"
 #' )
-#' 
+#'
 #' update_by(con, "test", by = list(id = 1, uid = 1), .dat = test_dat)
-#' 
-#' test <- collect(tbl(con, "test")) 
-#' 
+#'
+#' test <- con %>%
+#'   tbl("test") %>%
+#'   collect()
+#'
 #' update_by(con, "test", by = list(id = 1, uid = 1), .dat = test_dat, operator = "or")
-#' 
-#' test <- collect(tbl(con, "test")) 
-#' 
+#'
+#' test <- con %>%
+#'   tbl("test") %>%
+#'   collect()
+#'
 #' DBI::dbDisconnect(con)
-#' 
+#'
 #'
 update_by <- function(conn, tbl_name, by, .dat, operator = "AND") {
-  stopifnot(length(id) > 0)
+  stopifnot(length(by) > 0)
   stopifnot(length(tbl_name) == 1 && is.character(tbl_name))
   operator <- toupper(operator)
   stopifnot(operator %in% c("AND", "OR"))
-  
-  #.dat <- lapply(.dat, DBI::dbQuoteLiteral, conn = conn)
 
   sql_prep <- paste0(names(.dat), "=?", names(.dat))
   sql_where_prep <- paste0(names(by), "=?", names(by))
@@ -91,12 +101,12 @@ update_by <- function(conn, tbl_name, by, .dat, operator = "AND") {
     paste(sql_prep, collapse = ", "),
     paste(sql_where_prep, collapse = paste0(" ", operator, " "))
   )
-  
+
   dat_list <- c(
     .dat,
     by
   )
-  
+
   dat_list <- lapply(dat_list, DBI::dbQuoteLiteral, conn = conn)
 
   # protect against SQL injection

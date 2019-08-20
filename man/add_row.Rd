@@ -4,7 +4,7 @@
 \alias{add_row}
 \title{insert a row into a table}
 \usage{
-add_row(conn, tbl_name, .dat, verbose = FALSE)
+add_row(conn, tbl_name, .dat)
 }
 \arguments{
 \item{conn}{the `DBI` connection}
@@ -35,7 +35,7 @@ DBI::dbWriteTable(
   )
 )
 
-test <- dplyr::collect(dplyr::tbl(con, "test")) 
+test <- dplyr::collect(dplyr::tbl(con, "test"))
 
 test_dat <- list(
   id = 3,
@@ -44,7 +44,7 @@ test_dat <- list(
 
 add_row(con, "test", .dat = test_dat)
 
-test <- dplyr::collect(dplyr::tbl(con, "test")) 
+test <- dplyr::collect(dplyr::tbl(con, "test"))
 
 DBI::dbDisconnect(con)
 

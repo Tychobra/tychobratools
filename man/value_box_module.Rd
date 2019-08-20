@@ -4,9 +4,15 @@
 \alias{value_box_module}
 \title{value_box_module}
 \usage{
-value_box_module(input, output, server, value, subtitle)
+value_box_module(input, output, session, value, subtitle)
 }
 \arguments{
+\item{input}{the Shiny server input}
+
+\item{output}{the Shiny server output}
+
+\item{session}{the Shiny server session}
+
 \item{value}{The value to be displayed in the value box}
 
 \item{subtitle}{The subtitle to be displayed in the value box}

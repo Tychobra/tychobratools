@@ -2,11 +2,12 @@
 #'
 #' ui for contact dropdown button in shinydashboard
 #'
-#' @param contacts
+#' @param contacts list of contacts
 #'
-#' @import htmltools
+#' @importFrom htmltools tags tagList
 #'
 #' @export
+#'
 contact_ui <- function(contacts = list(
     list(
       name = "Elon Musk",
@@ -20,19 +21,19 @@ contact_ui <- function(contacts = list(
 
   htmltools::tags$li(
     class = "dropdown",
-    tags$a(
+    htmltools::tags$a(
       href="#",
       class = "dropdown-toggle",
       `data-toggle` = "dropdown",
-      div(
-        tags$i(
+      htmltools::tags$div(
+        htmltools::tags$i(
           class = "fa fa-phone"
         ),
         " Contact",
         style = "display: inline"
       )
     ),
-    tags$ul(
+    htmltools::tags$ul(
       class = "dropdown-menu",
       lapply(contacts, function(contact_info) {
         htmltools::tagList(

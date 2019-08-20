@@ -25,28 +25,25 @@
 #'     data_col = rep("hi", times = 2)
 #'   )
 #' )
-#' 
-#' test <- dplyr::collect(dplyr::tbl(con, "test")) 
-#' 
+#'
+#' test <- dplyr::collect(dplyr::tbl(con, "test"))
+#'
 #' test_dat <- list(
 #'   id = 3,
 #'   data_col = "hello"
 #' )
 #'
 #' add_row(con, "test", .dat = test_dat)
-#' 
-#' test <- dplyr::collect(dplyr::tbl(con, "test")) 
+#'
+#' test <- dplyr::collect(dplyr::tbl(con, "test"))
 #'
 #' DBI::dbDisconnect(con)
 #'
 #'
-add_row <- function(conn, tbl_name, .dat, verbose = FALSE) {
-  if (verbose == TRUE) {
-    message(paste0("[ add row to table ", tbl_name, "] "), .dat)
-  }
-  
+add_row <- function(conn, tbl_name, .dat) {
+
   .dat <- lapply(.dat, DBI::dbQuoteLiteral, conn = conn)
-  
+
   query <- sprintf(
     "INSERT INTO %s (%s) VALUES (%s);",
     tbl_name,
@@ -54,26 +51,15 @@ add_row <- function(conn, tbl_name, .dat, verbose = FALSE) {
     paste0("?", names(.dat), collapse = ", ")
   )
 
-  if (verbose == TRUE) {
-    message("[ query pre escaping ] ", .dat)
-  }
-  
+
   query <- DBI::sqlInterpolate(
     conn = conn,
     sql = query,
     .dots = .dat
   )
 
-  if (verbose == TRUE) {
-    message("[ query post escaping ] ", query)
-  }
-
   # execute SQL statement
   rows_affected <- DBI::dbExecute(conn, query)
-
-  if (verbose == TRUE) {
-    message("[ rows affected ] ", rows_affected)
-  }
 
   rows_affected
 }

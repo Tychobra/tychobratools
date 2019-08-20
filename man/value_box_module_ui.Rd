@@ -5,10 +5,12 @@
 \title{value_box_module_ui}
 \usage{
 value_box_module_ui(id, icon = NULL, backgroundColor = "#7cb5ec",
-  textColor = "#FFF", width = 4, href = NULL, icon_color = rgb(0,
-  0, 0, 0.15))
+  textColor = "#FFF", width = 4, href = NULL,
+  icon_color = grDevices::rgb(0, 0, 0, 0.15))
 }
 \arguments{
+\item{id}{the Shiny module id}
+
 \item{icon}{An icon made by the shiny icon function}
 
 \item{backgroundColor}{A hex color code string}
