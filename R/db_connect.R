@@ -6,13 +6,14 @@
 #'
 #' @import RPostgres
 #' @import DBI
-#' 
+#' @import shiny
+#'
 #' @export
 #'
 #' @return a DBIConnect object
 #'
 db_connect <- function(db_config) {
-  
+
   if (is.null(db_config)) {
     stop("Missing or invalid config file")
   } else {
@@ -23,15 +24,15 @@ db_connect <- function(db_config) {
       host = db_config$host,
       password = db_config$password
     )
-    
+
     # make sure we disconnect the database connection when the session ends
     try({
       shiny::onStop(function() {
         DBI::dbDisconnect(conn)
       })
     })
-    
+
   }
-  
+
   conn
 }

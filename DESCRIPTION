@@ -25,5 +25,6 @@ Imports:
 Suggests:
     RSQLite,
     highcharter,
-    dplyr
+    dplyr,
+    dbplyr
 RoxygenNote: 6.1.1
