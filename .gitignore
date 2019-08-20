@@ -2,6 +2,6 @@
 .Rhistory
 .RData
 .Ruserdata
-.Rbuildignore
 *.Rproj
 .DS_Store
+.travis.yml

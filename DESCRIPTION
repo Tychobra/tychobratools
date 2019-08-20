@@ -16,5 +16,6 @@ Imports:
     lubridate,
     DBI,
     devtools,
-    RPostgres
+    RPostgres,
+    shinydashboard
 RoxygenNote: 6.1.1
