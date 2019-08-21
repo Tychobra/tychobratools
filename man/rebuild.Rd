@@ -4,7 +4,13 @@
 \alias{rebuild}
 \title{rebuild}
 \usage{
-rebuild()
+rebuild(detach_packages = TRUE, clear_global_env = TRUE)
+}
+\arguments{
+\item{detach_packages}{boolean - `TRUE` by default.  Whether or not to detatch all attached packages other than
+base packages}
+
+\item{clear_global_env}{boolean - `TRUE` by default. Whether or not to clear the global environment.}
 }
 \description{
 Builds and installs your package, then restarts R
