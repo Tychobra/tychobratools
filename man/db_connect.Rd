@@ -4,10 +4,12 @@
 \alias{db_connect}
 \title{Database connection module}
 \usage{
-db_connect(db_config)
+db_connect(db_config, db_driver = RPostgres::Postgres())
 }
 \arguments{
 \item{db_config}{database configuration}
+
+\item{db_driver}{database driver}
 }
 \value{
 a DBIConnect object
