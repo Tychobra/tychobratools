@@ -3,6 +3,7 @@
 #' connect to the db
 #'
 #' @param db_config database configuration
+#' @param db_driver database driver
 #'
 #' @import RPostgres
 #' @import DBI
@@ -12,13 +13,13 @@
 #'
 #' @return a DBIConnect object
 #'
-db_connect <- function(db_config) {
+db_connect <- function(db_config, db_driver = RPostgres::Postgres()) {
 
   if (is.null(db_config)) {
     stop("Missing or invalid config file")
   } else {
     conn <- DBI::dbConnect(
-      RPostgres::Postgres(),
+      db_driver,
       dbname =  db_config$dbname,
       user = db_config$user,
       host = db_config$host,
