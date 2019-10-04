@@ -21,7 +21,8 @@ Imports:
     htmlwidgets,
     rstudioapi,
     utils,
-    grDevices
+    grDevices,
+    shinytoastr
 Suggests:
     RSQLite,
     highcharter,

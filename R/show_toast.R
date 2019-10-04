@@ -31,13 +31,14 @@ toast_custom_defaults <- list(
 #' @export
 #'
 #' @import shinytoastr
+#' @importFrom utils modifyList
 #'
 #' @return `invisible()`
 #'
 show_toast <- function(type, message, .options = list()) {
 
   args_list <- c(message, toast_custom_defaults)
-  args_out <- modifyList(args_list, .options)
+  args_out <- utils::modifyList(args_list, .options)
 
   function_name <- paste0("toastr_", type)
 
