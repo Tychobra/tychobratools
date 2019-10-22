@@ -5,7 +5,7 @@
 #' @param .dat a named list where the name is the database table field name and
 #' the each value is of length 1 and is the value for the field
 #'
-#' @import DBI
+#' @importFrom DBI sqlInterpolate dbExecute
 #'
 #' @return the number of rows affected or an error
 #'

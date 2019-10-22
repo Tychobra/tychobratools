@@ -8,7 +8,7 @@
 #' @param operator Either "AND" or "OR", determines whether the SQL query updates
 #' all rows that match all of by or at least one element of by
 #'
-#' @import DBI
+#' @importFrom DBI dbExecute sqlInterpolate
 #'
 #' @return the number of rows affected or an error
 #'

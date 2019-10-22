@@ -2,8 +2,8 @@
 #'
 #' @param title string - the title
 #'
-#' @import htmltools
-#' @import shiny
+#' @importFrom htmltools HTML tags
+#' @importFrom shiny titlePanel
 #'
 #' @export
 #'

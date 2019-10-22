@@ -2,8 +2,7 @@
 #'
 #' html and css to show page loading animation
 #'
-#' @import shiny
-#' @import htmltools
+#' @importFrom htmltools tags
 #'
 #' @export
 #'

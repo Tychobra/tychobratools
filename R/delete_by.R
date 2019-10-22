@@ -8,7 +8,7 @@
 #' @param operator Either "AND" or "OR", determines whether the SQL query deletes
 #' all rows that match all of by or at least one element of by
 #'
-#' @import DBI
+#' @importFrom DBI dbExecute
 #'
 #' @return the number of rows affected or an error. This value should be 1, 0, or the error
 #'
@@ -28,15 +28,15 @@
 #'     data_col = rep("hi", times = 2)
 #'   )
 #' )
-#' 
+#'
 #' test <- dplyr::collect(dplyr::tbl(con, "test"))
 #'
 #' delete_by(con, "test", by = list(id = "1"))
-#' 
+#'
 #' test <- dplyr::collect(dplyr::tbl(con, "test"))
 #'
 #' DBI::dbDisconnect(con)
-#' 
+#'
 #'
 #'
 #' con <- DBI::dbConnect(
@@ -53,15 +53,15 @@
 #'     data_col = rep("hi", times = 5)
 #'   )
 #' )
-#' 
+#'
 #' test <- dplyr::collect(dplyr::tbl(con, "test"))
 #'
 #' delete_by(con, "test", by = list(id = "1", uid = "1"))
-#' 
+#'
 #' test <- dplyr::collect(dplyr::tbl(con, "test"))
-#' 
+#'
 #' delete_by(con, "test", by = list(id = "1", uid = "1"), operator = "Or")
-#' 
+#'
 #' test <- dplyr::collect(dplyr::tbl(con, "test"))
 #'
 #' DBI::dbDisconnect(con)
@@ -72,7 +72,7 @@ delete_by <- function(conn, tbl_name, by, operator = "AND") {
   stopifnot(operator %in% c("AND", "OR"))
 
   sql_prep <- paste0(names(by), "=?", names(by))
-  
+
   query <- sprintf(
     "DELETE FROM %s WHERE %s;",
     tbl_name,

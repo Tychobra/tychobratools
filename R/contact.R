@@ -59,8 +59,7 @@ contact_ui <- function(contacts = list(
               contact_info$phone
             )
           ),
-          #br(),
-          hr()
+          htmltools::tags$hr()
         )
       })
     )

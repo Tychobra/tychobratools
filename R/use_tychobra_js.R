@@ -5,7 +5,7 @@
 #' @param show_window_icon boolean that deafults to `TRUE`.  Determines whether or
 #' not to show Tychobra logo icon in browser tab
 #'
-#' @import shiny
+#' @importFrom shiny singleton tags
 #'
 #' @export
 #'

@@ -8,8 +8,8 @@
 #' @param href A url
 #' @param icon_color A valid color string
 #'
-#' @import shiny
-#' @import shinydashboard
+#' @importFrom htmltools div h3 p
+#' @importFrom shiny NS
 #' @importFrom grDevices rgb
 #'
 #' @export
@@ -20,17 +20,17 @@ value_box_module_ui <- function(
 ) {
   ns <- shiny::NS(id)
 
-  boxContent <- shiny::div(
+  boxContent <- htmltools::div(
     class = paste0("small-box"),
     style = paste0("background-color: ", backgroundColor, "; color: ", textColor, ";"),
-    shiny::div(
+    htmltools::div(
       class = "inner",
-      shiny::h3(
+      h3(
         style = "height: 40.91px;",
         shiny::textOutput(ns("value_out"))
       ),
-      shiny::div(
-        shiny::p(shiny::textOutput(ns("subtitle_out"))),
+      div(
+        p(shiny::textOutput(ns("subtitle_out"))),
         style = "font-size: 15px; height: 20.91px; margin-bottom: 10px"
       )
     ),
@@ -39,7 +39,7 @@ value_box_module_ui <- function(
 
   if (!is.null(href)) boxContent <- shiny::a(href = href, boxContent)
 
-  shiny::div(
+  div(
     class = if (!is.null(width)) paste0("col-sm-", width),
     boxContent
   )
@@ -53,7 +53,7 @@ value_box_module_ui <- function(
 #' @param value The value to be displayed in the value box
 #' @param subtitle The subtitle to be displayed in the value box
 #'
-#' @import shiny
+#' @importFrom shiny reactive renderText
 #'
 #' @export
 #'

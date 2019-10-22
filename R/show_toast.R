@@ -30,7 +30,7 @@ toast_custom_defaults <- list(
 #'
 #' @export
 #'
-#' @import shinytoastr
+#' @importFrom shinytoastr toastr_error toastr_success toastr_warning toastr_info
 #' @importFrom utils modifyList
 #'
 #' @return `invisible()`

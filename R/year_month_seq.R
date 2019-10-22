@@ -7,7 +7,7 @@
 #' @return character vector with elements in the form "year_month". e.g.
 #' c("2018-01", "2018-02")
 #'
-#' @import lubridate
+#' @importFrom lubridate floor_date
 #'
 #' @export
 #'

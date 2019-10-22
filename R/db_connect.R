@@ -5,9 +5,9 @@
 #' @param db_config database configuration
 #' @param db_driver database driver
 #'
-#' @import RPostgres
-#' @import DBI
-#' @import shiny
+#' @importFrom RPostgres Postgres
+#' @importFrom DBI dbConnect dbDisconnect
+#' @importFrom shiny onStop
 #'
 #' @export
 #'
