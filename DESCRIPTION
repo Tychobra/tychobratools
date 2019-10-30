@@ -22,7 +22,8 @@ Imports:
     rstudioapi,
     utils,
     grDevices,
-    shinytoastr
+    shinytoastr,
+    pool
 Suggests:
     RSQLite,
     highcharter,

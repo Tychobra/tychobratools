@@ -53,7 +53,7 @@ db_connect <- function(db_config, db_driver = RPostgres::Postgres()) {
 #'
 db_pool <- function(db_config, db_driver = RPostgres::Postgres()) {
 
-  pool <- pool::dbPool(
+  pool_ <- pool::dbPool(
     db_driver,
     dbname =  db_config$dbname,
     user = db_config$user,
@@ -64,9 +64,9 @@ db_pool <- function(db_config, db_driver = RPostgres::Postgres()) {
   # make sure we disconnect the database connection when the session ends
   try({
     shiny::onStop(function() {
-      pool::poolClose(conn)
+      pool::poolClose(pool_)
     })
   })
 
-  pool
+  pool_
 }

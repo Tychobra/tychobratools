@@ -12,10 +12,7 @@ dt_buttons_options <- function(
     list(
       extend = "excel",
       text = "Download",
-      title = paste0("golf_carts-", Sys.Date()),
-      exportOptions = list(
-        columns =
-      )
+      title = paste0("golf_carts-", Sys.Date())
     )
   )
 
