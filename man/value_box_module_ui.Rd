@@ -4,9 +4,15 @@
 \alias{value_box_module_ui}
 \title{value_box_module_ui}
 \usage{
-value_box_module_ui(id, icon = NULL, backgroundColor = "#7cb5ec",
-  textColor = "#FFF", width = 4, href = NULL,
-  icon_color = grDevices::rgb(0, 0, 0, 0.15))
+value_box_module_ui(
+  id,
+  icon = NULL,
+  backgroundColor = "#7cb5ec",
+  textColor = "#FFF",
+  width = 4,
+  href = NULL,
+  icon_color = grDevices::rgb(0, 0, 0, 0.15)
+)
 }
 \arguments{
 \item{id}{the Shiny module id}

@@ -4,8 +4,10 @@
 \alias{contact_ui}
 \title{contact_ui}
 \usage{
-contact_ui(contacts = list(list(name = "Elon Musk", phone =
-  "555-555-5555", email = "elon.musk@tychobra.com")))
+contact_ui(
+  contacts = list(list(name = "Elon Musk", phone = "555-555-5555", email =
+    "elon.musk@tychobra.com"))
+)
 }
 \arguments{
 \item{contacts}{list of contacts}

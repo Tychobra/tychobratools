@@ -4,8 +4,10 @@
 \alias{dt_buttons_options}
 \title{options for DT buttons}
 \usage{
-dt_buttons_options(filename = function() paste0("file-", Sys.Date(),
-  ".xlsx"), cols = NULL)
+dt_buttons_options(
+  filename = function() paste0("file-", Sys.Date(), ".xlsx"),
+  cols = NULL
+)
 }
 \arguments{
 \item{filename}{function that returns the filename for the downloaded file}

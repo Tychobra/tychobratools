@@ -4,9 +4,15 @@
 \alias{valueBoxColor}
 \title{Change the color of a value box}
 \usage{
-valueBoxColor(value, subtitle, icon = NULL,
-  backgroundColor = "#7cb5ec", textColor = "#FFF", width = 4,
-  href = NULL)
+valueBoxColor(
+  value,
+  subtitle,
+  icon = NULL,
+  backgroundColor = "#7cb5ec",
+  textColor = "#FFF",
+  width = 4,
+  href = NULL
+)
 }
 \arguments{
 \item{value}{The value to be displayed}
