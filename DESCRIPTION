@@ -1,7 +1,7 @@
 Package: tychobratools
 Type: Package
 Title: Some customizations for R and Shiny
-Version: 0.0.1.9000
+Version: 0.0.1.9001
 Author: person("Andy", "Merlino", email = "andy.merlino@tychobra.com", role = c("aut", "cre"))
 Maintainer: Andy Merlino <andy.merlino@tychobra.com>
 Description: More about what it does (maybe more than one line)
@@ -29,4 +29,4 @@ Suggests:
     highcharter,
     dplyr,
     dbplyr
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.0
