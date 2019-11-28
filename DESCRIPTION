@@ -23,10 +23,11 @@ Imports:
     utils,
     grDevices,
     shinytoastr,
-    pool
+    pool,
+    packrat
 Suggests:
     RSQLite,
     highcharter,
     dplyr,
     dbplyr
-RoxygenNote: 7.0.0
+RoxygenNote: 7.0.1
