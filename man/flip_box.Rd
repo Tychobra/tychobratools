@@ -6,9 +6,8 @@
 \usage{
 flip_box(
   id,
-  front_content = h1("Hi From the Front"),
-  back_content = tags$div(style =
-    "background-color: #FFF; height: 380px; margin-top: -20px;", h1("Hi From the back"), )
+  front_content = htmltools::h1("Hi From the Front"),
+  back_content = htmltools::h1("Hi From the back")
 )
 }
 \arguments{
@@ -19,5 +18,18 @@ flip_box(
 \item{back_content}{ui for the back of the flip box}
 }
 \description{
-ui for the flip_box_ui
+ui for the flip_box - based off of \href{https://rinterface.github.io/shinydashboardPlus/}{shinydashboardplus::flipBox}
 }
+\section{Warning}{
+ this function is experimental.
+}
+
+\references{
+\url{https://rinterface.github.io/shinydashboardPlus/reference/flipBox.html}
+}
+\seealso{
+Other flip_box functions: 
+\code{\link{flip_button_back}()},
+\code{\link{flip_button_front}()}
+}
+\concept{flip_box functions}

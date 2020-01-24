@@ -8,7 +8,7 @@
 #' @export
 #'
 #' @importFrom htmltools tags
-#'
+#' @family flip_box functions
 flip_button_front <- function(id, text) {
   tags$button(
     id = paste0("btn-flip-front-", id),
@@ -28,7 +28,7 @@ flip_button_front <- function(id, text) {
 #' @export
 #'
 #' @importFrom htmltools tags
-#'
+#' @family flip_box functions
 flip_button_back <- function(id, text) {
   tags$button(
     id = paste0("btn-flip-back-", id),
@@ -40,7 +40,7 @@ flip_button_back <- function(id, text) {
 
 #' flip_box
 #'
-#' ui for the flip_box_ui
+#' ui for the flip_box - based off of \href{https://rinterface.github.io/shinydashboardPlus/}{shinydashboardplus::flipBox}
 #'
 #' @param id the flipbox id
 #' @param front_content ui for the front of the flip box
@@ -51,19 +51,22 @@ flip_button_back <- function(id, text) {
 #' @importFrom htmltools tagList tags
 #' @importFrom shiny singleton
 #'
+#' @section Warning: this function is experimental.
 #'
-flip_box <- function (
-  id,
-  front_content = h1("Hi From the Front"),
-  back_content = tags$div(
-    style = "background-color: #FFF; height: 380px; margin-top: -20px;",
-    h1("Hi From the back"),
-  )
-) {
-  if (is.null(id))
-    stop("card id cannot be null and must be unique")
+#' @references \url{https://rinterface.github.io/shinydashboardPlus/reference/flipBox.html}
+#' @family flip_box functions
+flip_box <- function(id,
+                     front_content = htmltools::h1("Hi From the Front"),
+                     back_content = htmltools::h1("Hi From the back")) {
 
-  tagList(
+  if (is.null(id)) stop("card id cannot be null and must be unique")
+
+  back_content <- tags$div(
+      style = "background-color: #FFF; height: 380px; margin-top: -20px;",
+      back_content
+  )
+
+  htmltools::tagList(
     tags$div(
       class = "rotate-container",
       tags$div(

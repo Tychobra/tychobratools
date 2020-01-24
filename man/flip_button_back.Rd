@@ -14,3 +14,9 @@ flip_button_back(id, text)
 \description{
 button to flip to the back of the flip_box
 }
+\seealso{
+Other flip_box functions: 
+\code{\link{flip_box}()},
+\code{\link{flip_button_front}()}
+}
+\concept{flip_box functions}
