@@ -55,16 +55,16 @@ flip_button_back <- function(id, text) {
 #'
 #' @references \url{https://rinterface.github.io/shinydashboardPlus/reference/flipBox.html}
 #' @family flip_box functions
-flip_box <- function(id,
-                     front_content = htmltools::h1("Hi From the Front"),
-                     back_content = htmltools::h1("Hi From the back")) {
+flip_box <- function(
+  id,
+  front_content = htmltools::h1("Hi From the Front"),
+  back_content = tags$div(
+    style = "background-color: #FFF; height: 380px;",
+    back_content
+  )
+) {
 
   if (is.null(id)) stop("card id cannot be null and must be unique")
-
-  back_content <- tags$div(
-      style = "background-color: #FFF; height: 380px; margin-top: -20px;",
-      back_content
-  )
 
   htmltools::tagList(
     tags$div(
