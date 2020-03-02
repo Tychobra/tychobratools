@@ -7,7 +7,8 @@
 flip_box(
   id,
   front_content = htmltools::h1("Hi From the Front"),
-  back_content = htmltools::h1("Hi From the back")
+  back_content = tags$div(style = "background-color: #FFF; height: 380px;",
+    back_content)
 )
 }
 \arguments{

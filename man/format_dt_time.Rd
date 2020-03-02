@@ -4,16 +4,25 @@
 \alias{format_dt_time}
 \title{format_dt_time}
 \usage{
-format_dt_time(col_num)
+format_dt_time(col_num, today_format = "time", older_format = "date")
 }
 \arguments{
 \item{col_num}{the column number to format.  `col_num` uses 1 based column indexing, so
 the first column is column `1`.}
+
+\item{today_format}{the format to use for datetimes in the current day.  Valid values are
+"time" (to only show the time), "date" (to only show the date), and "datetime" (to show
+the date and the time).  Defaults to "time".}
+
+\item{older_format}{the format to use for datetimes from days before the current day.  Valid values are
+"time" (to only show the time), "date" (to only show the date), and "datetime" (to show
+the date and the time).  Defaults to "date".}
 }
 \description{
 format_dt_time
 }
 \examples{
 format_dt_time(5)
+
 
 }

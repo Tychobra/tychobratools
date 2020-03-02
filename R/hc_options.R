@@ -5,6 +5,7 @@
 #' @export
 #'
 #' @importFrom htmlwidgets JS
+#' @importFrom shiny addResourcePath
 #'
 #' @examples
 #' library(highcharter)
@@ -19,6 +20,7 @@
 #'   )
 #'
 hc_btn_options <- function() {
+
   list(
     contextButton = list(
       menuItems = list(
@@ -48,6 +50,8 @@ hc_btn_options <- function() {
     )
   )
 }
+
+
 
 #' hc_global_options
 #'
