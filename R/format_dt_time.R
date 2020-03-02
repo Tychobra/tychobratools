@@ -2,12 +2,6 @@
 #'
 #' @param col_num the column number to format.  `col_num` uses 1 based column indexing, so
 #' the first column is column `1`.
-#' @param today_format the format to use for datetimes in the current day.  Valid values are
-#' "time" (to only show the time), "date" (to only show the date), and "datetime" (to show
-#' the date and the time).  Defaults to "time".
-#' @param older_format the format to use for datetimes from days before the current day.  Valid values are
-#' "time" (to only show the time), "date" (to only show the date), and "datetime" (to show
-#' the date and the time).  Defaults to "date".
 #'
 #' @export
 #'
@@ -16,8 +10,7 @@
 #' @examples
 #' format_dt_time(5)
 #'
-#'
-format_dt_time <- function(col_num, today_format = "time", older_format = "date") {
+format_dt_time <- function(col_num) {
 
   col_num_js <- col_num - 1
 
@@ -42,27 +35,10 @@ format_dt_time <- function(col_num, today_format = "time", older_format = "date"
 
     "var out = null",
     "if (date_is_today === true) {
-
-      if (today_format === 'time') {
-        out = date_local.toLocaleTimeString([], {hour: 'numeric', minute: '2-digit'})
-      } else if (today_format === 'date') {
-        out = date_local.toLocaleDateString()
-      } else {
-        out = date_local.toLocaleDateString() + ' ' + date_local.toLocaleTimeString([], {hour: 'numeric', minute: '2-digit'})
-      }
-
-
-    } else {
-
-      if (older_format === 'time') {
-        out = date_local.toLocaleTimeString([], {hour: 'numeric', minute: '2-digit'})
-      } else if (older_format === 'date') {
-        out = date_local.toLocaleDateString()
-      } else {
-        out = date_local.toLocaleDateString() + ' ' + date_local.toLocaleTimeString([], {hour: 'numeric', minute: '2-digit'})
-      }
-
-    }",
+              out = date_local.toLocaleTimeString([], {hour: 'numeric', minute: '2-digit'})
+            } else {
+              out = date_local.toLocaleDateString()
+            }",
 
     paste0("$('td:eq(", col_num_js, ")', row).html(out)"),
 
