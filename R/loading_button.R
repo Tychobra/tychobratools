@@ -45,8 +45,6 @@ loading_button <- function(id,
           tags$script(
             paste0(
               "$(function() {
-                
-                var counter = 0;
               
                 $('#loading_button-", id, "').click(function() {
                   Shiny.setInputValue('", id, "', true, { priority: 'event' });
@@ -64,9 +62,6 @@ loading_button <- function(id,
                 $('#loading_button-' + message.id).attr('disabled', false);
                 $('#loading_button-' + message.id).html('", label, "');
                 $('#loading_button-' + message.id).css({'color': '#fff', 'background-color': '#337ab7', 'border-color': '#2e6da4'});
-                // Shiny.setInputValue(message.id, null);
-                // Shiny.setInputValue('#loading_button-' + message.id, 'TRUE');
-                // debugger;
               });"
             )
           )
