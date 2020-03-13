@@ -9,6 +9,7 @@
 #'
 #' @importFrom htmltools tags
 #' @family flip_box functions
+
 loading_button <- function(id, 
                            label,
                            loading_text = "Loading...",
@@ -24,6 +25,10 @@ loading_button <- function(id,
     tagList(
       shiny::singleton(
         tags$head(
+          # Used personalized kit from FA
+          tags$script(
+            src = "https://kit.fontawesome.com/fb4611ff56.js"
+          ),
           tags$style(
             paste0(
               "
@@ -42,18 +47,18 @@ loading_button <- function(id,
             )
           ),
           # Script for disabling button & changing text
-          tags$script(
+          tags$script(HTML(
             paste0(
               "$(function() {
               
                 $('#loading_button-", id, "').click(function() {
                   Shiny.setInputValue('", id, "', true, { priority: 'event' });
                   $(this).attr('disabled', true);
-                  $(this).html('", loading_text, "');
+                  $(this).html('<i class=", '"fas fa-spinner fa-spin">', "</i> ", loading_text, "');
                   $(this).css({'background-color': '", loading_color, "', 'border-color': '", loading_color, "'});
                 });
               });"
-            )
+            ))
           ),
           # Script for resetting button
           tags$script(
