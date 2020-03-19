@@ -15,15 +15,15 @@
 
 loading_button <- function(id, 
                            label,
-                           style = NULL,
+                           style = "color: #FFFFFF; background-color: #337AB7; border-color: #2E6DA4;",
                            loading_text = "Loading...",
-                           loading_style = NULL
+                           loading_style = "color: #FFFFFF; background-color: grey; border-color: grey;"
 ) {
   
   htmltools::tagList(
     tags$button(
       id = paste0("loading_button-", id),
-      class = "btn btn-primary",
+      class = "btn style",
       label
     ),
     tagList(
@@ -36,136 +36,43 @@ loading_button <- function(id,
           tags$style(
             paste0(
               "
-              .custom_button {",
+              .style {",
               style,
               "}
               
-              .loading {
-                color: #fff;
-                background-color: grey;
-                border-color: grey;
-              }
-              
-              .custom_loading {",
+              .loading_style {",
               loading_style,
               "}
               "
             )
           ),
-          tags$script(
-            if (!is.null(style)) {
-              paste0(
-                "$(function() {
-                  $('#loading_button-", id, "').removeClass('btn-primary');
-                  $('#loading_button-", id, "').addClass('custom_button');
-                });
-                "
-              )
-            }
-          ),
           # Script for disabling button & changing text
           tags$script(
-            if (!is.null(style) && !is.null(loading_style)) {
-              # browser()
-              HTML(
-                paste0(
-                  "$(function() {
-                    $('#loading_button-", id, "').click(function() {
-                      Shiny.setInputValue('", id, "', true, { priority: 'event' });
-                      $(this).attr('disabled', true);
-                      $(this).html('<i class=", '"fas fa-spinner fa-spin">', "</i> ", loading_text, "');
-                      $(this).removeClass('custom_button');
-                      $(this).addClass('custom_loading');
-                      debugger;
-                    });
-                  });"
-                )
+            HTML(
+              paste0(
+                "$(function() {
+                  $('#loading_button-", id, "').click(function() {
+                    Shiny.setInputValue('", id, "', true, { priority: 'event' });
+                    $(this).attr('disabled', true);
+                    $(this).html('<i class=", '"fas fa-spinner fa-spin">', "</i> ", loading_text, "');
+                    $(this).removeClass('style');
+                    $(this).addClass('loading_style');
+                    debugger;
+                  });
+                });"
               )
-            } else if (!is.null(style) && is.null(loading_style)) {
-              HTML(
-                paste0(
-                  "$(function() {
-                    $('#loading_button-", id, "').click(function() {
-                      Shiny.setInputValue('", id, "', true, { priority: 'event' });
-                      $(this).attr('disabled', true);
-                      $(this).html('<i class=", '"fas fa-spinner fa-spin">', "</i> ", loading_text, "');
-                      $(this).removeClass('custom_button');
-                      $(this).addClass('loading');
-                      debugger;
-                    });
-                  });"
-                )
-              )  
-            } else if (!is.null(loading_style) && is.null(style)) {
-              HTML(
-                paste0(
-                  "$(function() {
-                    $('#loading_button-", id, "').click(function() {
-                      Shiny.setInputValue('", id, "', true, { priority: 'event' });
-                      $(this).attr('disabled', true);
-                      $(this).html('<i class=", '"fas fa-spinner fa-spin">', "</i> ", loading_text, "');
-                      $(this).removeClass('btn-primary');
-                      $(this).addClass('custom_loading');
-                      debugger;
-                    });
-                  });"
-                )
-              )
-            } else {
-              HTML(
-                paste0(
-                  "$(function() {
-                    $('#loading_button-", id, "').click(function() {
-                      Shiny.setInputValue('", id, "', true, { priority: 'event' });
-                      $(this).attr('disabled', true);
-                      $(this).html('<i class=", '"fas fa-spinner fa-spin">', "</i> ", loading_text, "');
-                      $(this).removeClass('btn-primary');
-                      $(this).addClass('loading');
-                    });
-                  });"
-                )
-              )
-            }
+            )
           ),
           # Script for resetting button
           tags$script(
-            if (!is.null(style) && !is.null(loading_style)) {
-              paste0(
-                "Shiny.addCustomMessageHandler('reset_loading_button', function(message) {
-                  $('#loading_button-' + message.id).attr('disabled', false);
-                  $('#loading_button-' + message.id).html('", label, "');
-                  $('#loading_button-' + message.id).removeClass('custom_loading');
-                  $('#loading_button-' + message.id).addClass('custom_button');
-                });"
-              )
-            } else if (!is.null(style) && is.null(loading_style)) {
-              paste0(
-                "Shiny.addCustomMessageHandler('reset_loading_button', function(message) {
-                  $('#loading_button-' + message.id).attr('disabled', false);
-                  $('#loading_button-' + message.id).html('", label, "');
-                  $('#loading_button-' + message.id).removeClass('loading');
-                  $('#loading_button-' + message.id).addClass('custom_button');
-                });"
-              )
-            } else if (!is.null(loading_style) && is.null(style)) {
-              paste0(
-                "Shiny.addCustomMessageHandler('reset_loading_button', function(message) {
-                  $('#loading_button-' + message.id).attr('disabled', false);
-                  $('#loading_button-' + message.id).html('", label, "');
-                  $('#loading_button-' + message.id).removeClass('custom_loading');
-                  $('#loading_button-' + message.id).addClass('btn-primary');
-                });"
-              )
-            } else {
-              paste0(
-                "Shiny.addCustomMessageHandler('reset_loading_button', function(message) {
-                  $('#loading_button-' + message.id).attr('disabled', false);
-                  $('#loading_button-' + message.id).html('", label, "');
-                  $('#loading_button-' + message.id).removeClass('loading');
-                  $('#loading_button-' + message.id).addClass('btn-primary');
-                });"
-              )
-            }
+            paste0(
+              "Shiny.addCustomMessageHandler('reset_loading_button', function(message) {
+                $('#loading_button-' + message.id).attr('disabled', false);
+                $('#loading_button-' + message.id).html('", label, "');
+                $('#loading_button-' + message.id).removeClass('loading_style');
+                $('#loading_button-' + message.id).addClass('style');
+              });"
+            )
           )
         )
       )
@@ -182,3 +89,4 @@ reset_loading_button <- function(id, session = shiny::getDefaultReactiveDomain()
     )
   )
 }
+
