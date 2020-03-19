@@ -12,14 +12,15 @@
 
 loading_button <- function(id, 
                            label,
+                           style = NULL,
                            loading_text = "Loading...",
-                           loading_color = "grey"
+                           loading_style = NULL
 ) {
   
   htmltools::tagList(
     tags$button(
       id = paste0("loading_button-", id),
-      class = "btn",
+      class = "btn btn-primary",
       label
     ),
     tagList(
@@ -32,43 +33,136 @@ loading_button <- function(id,
           tags$style(
             paste0(
               "
-              #loading_button-", id, " {
-                color: #fff;
-                background-color: #337ab7;
-                border-color: #2e6da4;
-              }
+              .custom_button {",
+              style,
+              "}
               
               .loading {
                 color: #fff;
-                background-color: ", loading_color, ";
-                border-color: ", loading_color, ";
+                background-color: grey;
+                border-color: grey;
               }
+              
+              .custom_loading {",
+              loading_style,
+              "}
               "
             )
           ),
-          # Script for disabling button & changing text
-          tags$script(HTML(
-            paste0(
-              "$(function() {
-              
-                $('#loading_button-", id, "').click(function() {
-                  Shiny.setInputValue('", id, "', true, { priority: 'event' });
-                  $(this).attr('disabled', true);
-                  $(this).html('<i class=", '"fas fa-spinner fa-spin">', "</i> ", loading_text, "');
-                  $(this).css({'background-color': '", loading_color, "', 'border-color': '", loading_color, "'});
+          tags$script(
+            if (!is.null(style)) {
+              paste0(
+                "$(function() {
+                  $('#loading_button-", id, "').removeClass('btn-primary');
+                  $('#loading_button-", id, "').addClass('custom_button');
                 });
-              });"
-            ))
+                "
+              )
+            }
+          ),
+          # Script for disabling button & changing text
+          tags$script(
+            if (!is.null(style) && !is.null(loading_style)) {
+              # browser()
+              HTML(
+                paste0(
+                  "$(function() {
+                    $('#loading_button-", id, "').click(function() {
+                      Shiny.setInputValue('", id, "', true, { priority: 'event' });
+                      $(this).attr('disabled', true);
+                      $(this).html('<i class=", '"fas fa-spinner fa-spin">', "</i> ", loading_text, "');
+                      $(this).removeClass('custom_button');
+                      $(this).addClass('custom_loading');
+                      debugger;
+                    });
+                  });"
+                )
+              )
+            } else if (!is.null(style) && is.null(loading_style)) {
+              HTML(
+                paste0(
+                  "$(function() {
+                    $('#loading_button-", id, "').click(function() {
+                      Shiny.setInputValue('", id, "', true, { priority: 'event' });
+                      $(this).attr('disabled', true);
+                      $(this).html('<i class=", '"fas fa-spinner fa-spin">', "</i> ", loading_text, "');
+                      $(this).removeClass('custom_button');
+                      $(this).addClass('loading');
+                      debugger;
+                    });
+                  });"
+                )
+              )  
+            } else if (!is.null(loading_style) && is.null(style)) {
+              HTML(
+                paste0(
+                  "$(function() {
+                    $('#loading_button-", id, "').click(function() {
+                      Shiny.setInputValue('", id, "', true, { priority: 'event' });
+                      $(this).attr('disabled', true);
+                      $(this).html('<i class=", '"fas fa-spinner fa-spin">', "</i> ", loading_text, "');
+                      $(this).removeClass('btn-primary');
+                      $(this).addClass('custom_loading');
+                      debugger;
+                    });
+                  });"
+                )
+              )
+            } else {
+              HTML(
+                paste0(
+                  "$(function() {
+                    $('#loading_button-", id, "').click(function() {
+                      Shiny.setInputValue('", id, "', true, { priority: 'event' });
+                      $(this).attr('disabled', true);
+                      $(this).html('<i class=", '"fas fa-spinner fa-spin">', "</i> ", loading_text, "');
+                      $(this).removeClass('btn-primary');
+                      $(this).addClass('loading');
+                    });
+                  });"
+                )
+              )
+            }
           ),
           # Script for resetting button
           tags$script(
-            paste0(
-              "Shiny.addCustomMessageHandler('reset_loading_button', function(message) {
-                $('#loading_button-' + message.id).attr('disabled', false);
-                $('#loading_button-' + message.id).html('", label, "');
-                $('#loading_button-' + message.id).css({'color': '#fff', 'background-color': '#337ab7', 'border-color': '#2e6da4'});
-              });"
-            )
+            if (!is.null(style) && !is.null(loading_style)) {
+              paste0(
+                "Shiny.addCustomMessageHandler('reset_loading_button', function(message) {
+                  $('#loading_button-' + message.id).attr('disabled', false);
+                  $('#loading_button-' + message.id).html('", label, "');
+                  $('#loading_button-' + message.id).removeClass('custom_loading');
+                  $('#loading_button-' + message.id).addClass('custom_button');
+                });"
+              )
+            } else if (!is.null(style) && is.null(loading_style)) {
+              paste0(
+                "Shiny.addCustomMessageHandler('reset_loading_button', function(message) {
+                  $('#loading_button-' + message.id).attr('disabled', false);
+                  $('#loading_button-' + message.id).html('", label, "');
+                  $('#loading_button-' + message.id).removeClass('loading');
+                  $('#loading_button-' + message.id).addClass('custom_button');
+                });"
+              )
+            } else if (!is.null(loading_style) && is.null(style)) {
+              paste0(
+                "Shiny.addCustomMessageHandler('reset_loading_button', function(message) {
+                  $('#loading_button-' + message.id).attr('disabled', false);
+                  $('#loading_button-' + message.id).html('", label, "');
+                  $('#loading_button-' + message.id).removeClass('custom_loading');
+                  $('#loading_button-' + message.id).addClass('btn-primary');
+                });"
+              )
+            } else {
+              paste0(
+                "Shiny.addCustomMessageHandler('reset_loading_button', function(message) {
+                  $('#loading_button-' + message.id).attr('disabled', false);
+                  $('#loading_button-' + message.id).html('", label, "');
+                  $('#loading_button-' + message.id).removeClass('loading');
+                  $('#loading_button-' + message.id).addClass('btn-primary');
+                });"
+              )
+            }
           )
         )
       )
@@ -85,4 +179,3 @@ reset_loading_button <- function(id, session = shiny::getDefaultReactiveDomain()
     )
   )
 }
-
