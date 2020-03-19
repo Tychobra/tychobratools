@@ -4,6 +4,9 @@
 #'
 #' @param id the flipbox id
 #' @param label the button text (label)
+#' @param style style for button (pre-loading); character string w/ CSS styling format: "color: black; background-color: red;"
+#' @param loading_text text to show after button is clicked (e.g. during loading)
+#' @param loading_style style for button (while loading); character string w/ CSS styling format: "color: black; background-color: red;"
 #'
 #' @export
 #'
