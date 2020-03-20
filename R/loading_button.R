@@ -15,6 +15,7 @@
 
 loading_button <- function(id, 
                            label,
+                           class = 'btn',
                            style = "color: #FFFFFF; background-color: #337AB7; border-color: #2E6DA4;",
                            loading_text = "Loading...",
                            loading_style = "color: #FFFFFF; background-color: grey; border-color: grey;"
@@ -23,58 +24,18 @@ loading_button <- function(id,
   htmltools::tagList(
     tags$button(
       id = paste0("loading_button-", id),
-      class = "btn style",
+      class = class,
       label
     ),
     tagList(
-      shiny::singleton(
-        tags$head(
+      tags$head(
+        shiny::singleton(
           # Used personalized kit from FA
           tags$script(
             src = "https://kit.fontawesome.com/fb4611ff56.js"
-          ),
-          tags$style(
-            paste0(
-              "
-              .style {",
-              style,
-              "}
-              
-              .loading_style {",
-              loading_style,
-              "}
-              "
-            )
-          ),
-          # Script for disabling button & changing text
-          tags$script(
-            HTML(
-              paste0(
-                "$(function() {
-                  $('#loading_button-", id, "').click(function() {
-                    Shiny.setInputValue('", id, "', true, { priority: 'event' });
-                    $(this).attr('disabled', true);
-                    $(this).html('<i class=", '"fas fa-spinner fa-spin">', "</i> ", loading_text, "');
-                    $(this).removeClass('style');
-                    $(this).addClass('loading_style');
-                    debugger;
-                  });
-                });"
-              )
-            )
-          ),
-          # Script for resetting button
-          tags$script(
-            paste0(
-              "Shiny.addCustomMessageHandler('reset_loading_button', function(message) {
-                $('#loading_button-' + message.id).attr('disabled', false);
-                $('#loading_button-' + message.id).html('", label, "');
-                $('#loading_button-' + message.id).removeClass('loading_style');
-                $('#loading_button-' + message.id).addClass('style');
-              });"
-            )
           )
-        )
+        ),
+        tags$script(paste0("loading_button('", id, "', '", style, "', '", loading_text, "', '", loading_style, "', '", label, "')"))
       )
     )
   )
