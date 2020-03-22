@@ -7,29 +7,28 @@
 loading_button(
   id,
   label,
+  class = "btn",
   style = "color: #FFFFFF; background-color: #337AB7; border-color: #2E6DA4;",
-  loading_text = "Loading...",
+  loading_label = "Loading...",
+  loading_class = "btn",
   loading_style = "color: #FFFFFF; background-color: grey; border-color: grey;"
 )
 }
 \arguments{
-\item{id}{the flipbox id}
+\item{id}{the input id}
 
 \item{label}{the button text (label)}
 
+\item{class}{the class(es) to apply to the button}
+
 \item{style}{style for button (pre-loading); character string w/ CSS styling format: "color: black; background-color: red;"}
 
-\item{loading_text}{text to show after button is clicked (e.g. during loading)}
+\item{loading_label}{text to show after button is clicked (e.g. during loading)}
+
+\item{loading_class}{the loading button css class(es).}
 
 \item{loading_style}{style for button (while loading); character string w/ CSS styling format: "color: black; background-color: red;"}
 }
 \description{
 Button that becomes disabled until reset w/ `reset_loading_button`
 }
-\seealso{
-Other flip_box functions: 
-\code{\link{flip_box}()},
-\code{\link{flip_button_back}()},
-\code{\link{flip_button_front}()}
-}
-\concept{flip_box functions}
