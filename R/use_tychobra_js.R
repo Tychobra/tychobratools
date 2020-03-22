@@ -11,8 +11,6 @@
 #'
 use_tychobra_js <- function(show_window_icon = TRUE) {
 
-  shiny::addResourcePath("tychobratools", system.file("srcjs", package = "tychobratools"))
-
   if (show_window_icon) {
     out <- tags$div(
       shiny::singleton(
