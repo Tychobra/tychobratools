@@ -31,7 +31,6 @@ ui for the flip_box - based off of \href{https://rinterface.github.io/shinydashb
 \seealso{
 Other flip_box functions: 
 \code{\link{flip_button_back}()},
-\code{\link{flip_button_front}()},
-\code{\link{loading_button}()}
+\code{\link{flip_button_front}()}
 }
 \concept{flip_box functions}

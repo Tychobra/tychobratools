@@ -17,7 +17,6 @@ button to flip to the front of the flip_box
 \seealso{
 Other flip_box functions: 
 \code{\link{flip_box}()},
-\code{\link{flip_button_back}()},
-\code{\link{loading_button}()}
+\code{\link{flip_button_back}()}
 }
 \concept{flip_box functions}

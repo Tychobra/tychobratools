@@ -7,12 +7,12 @@ ui <- fluidPage(
       12,
       h1("Test App"),
       loading_button(
-        'btn',
-        'Loading Button'
+        "my_loading_bytton",
+        "Loading Button"
       ),
       actionButton(
-        'reset',
-        'Reset Button'
+        "reset",
+        "Reset Button"
       )
     )
   )
@@ -22,7 +22,7 @@ server <- function(input, output, session) {
 
   observeEvent(input$reset, {
 
-    reset_loading_button('btn')
+    reset_loading_button("my_loading_bytton")
   })
 
 }
