@@ -23,10 +23,15 @@ Imports:
     utils,
     grDevices,
     shinytoastr,
-    pool
+    pool,
+    processx,
+    pkgload
 Suggests:
     RSQLite,
     highcharter,
     dplyr,
-    dbplyr
+    dbplyr,
+    testthat (>= 2.1.0),
+    shinytest,
+    webdriver
 RoxygenNote: 7.1.0
