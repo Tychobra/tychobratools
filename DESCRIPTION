@@ -1,37 +1,51 @@
-Package: tychobratools
 Type: Package
+Package: tychobratools
 Title: Some customizations for R and Shiny
 Version: 0.0.1.9002
-Author: person("Andy", "Merlino", email = "andy.merlino@tychobra.com", role = c("aut", "cre"))
+Authors@R: 
+    c(person(given = "Andy",
+             family = "Merlino",
+             role = c("aut", "cre"),
+             email = "andy.merlino@tychobra.com"),
+      person(given = "Patrick",
+             family = "Howard",
+             role = "ctb",
+             email = "patrick.howard@tychobra.com"),
+      person(given = "Jimmy",
+             family = "Briggs",
+             role = "ctb",
+             email = "jimmy.briggs@oliverwyman.com"))
 Maintainer: Andy Merlino <andy.merlino@tychobra.com>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Description: tychobratools is a custom R Package containing
+    various customizations used frequently at Tychobra when developing
+    Shiny Apps and R projects.
 License: MIT + file LICENSE
-Encoding: UTF-8
-LazyData: true
+URL: https://github.com/Tychobra/tychobratools
+BugReports: https://github.com/Tychobra/tychobratools/issues
 Imports:
-    shiny,
-    shinyjs,
-    htmltools,
-    lubridate,
     DBI,
     devtools,
-    RPostgres,
-    shinydashboard,
-    htmlwidgets,
-    rstudioapi,
-    utils,
     grDevices,
-    shinytoastr,
+    htmltools,
+    htmlwidgets,
+    lubridate,
     pool,
-    processx,
-    pkgload
+    RPostgres,
+    rstudioapi,
+    shiny,
+    shinydashboard,
+    shinyjs,
+    shinytoastr,
+    utils
 Suggests:
-    RSQLite,
-    highcharter,
-    dplyr,
     dbplyr,
-    testthat (>= 2.1.0),
-    shinytest,
-    webdriver
+    dplyr,
+    here,
+    highcharter,
+    pkgload,
+    processx,
+    RSQLite,
+    testthat (>= 2.1.0)
+Encoding: UTF-8
+LazyData: true
 RoxygenNote: 7.1.0
