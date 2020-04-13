@@ -27,16 +27,28 @@ function loading_button(id, label, class_name, style, loading_label, loading_cla
     loading_button.removeClass(class_name);
     loading_button.addClass(loading_class);
   });
-
-  // Reset button to original state
-  Shiny.addCustomMessageHandler('reset_loading_button', function(message) {
-
-    var loading_button = $("#" + message.id)
+  
+  function reset_loading(id_) {
+    var loading_button = $("#" + id_)
 
     loading_button.attr('disabled', false);
     loading_button.html(label);
     loading_button.attr('style', style);
     loading_button.removeClass(loading_class);
     loading_button.addClass(class_name);
+  }
+  
+  // Reset button to original state
+  Shiny.addCustomMessageHandler('reset_loading_button', function(message) {
+    reset_loading(message.id)
   });
+  
+  // Reset button to original state w/ JS command 
+  $(document).on("tychobratools:reset", function(event, param1) {
+    
+    console.log('I triggered', input_id)
+    reset_loading(input_id)
+  })
+  //$(document).trigger("tychobratools:reset", ["my_input"])
+  
 }
