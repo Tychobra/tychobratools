@@ -6,14 +6,14 @@ function loading_button(id, label, class_name, style, loading_label, loading_cla
   // Allow Shiny session to start
   $(document).on('shiny:sessioninitialized', function() {
 
-    var target = $('#loading_button-' + id);
+    var target = $("#" + id);
 
     // set the initial loading button value
     Shiny.setInputValue(id, btn_value, { priority: 'event' });
   });
 
   // Disable button & change text
-  $(document).on('click', '#loading_button-' + id, function() {
+  $(document).on('click', "#" + id, function() {
     // increment the button value by 1.  This is consistent with how `shiny::actionButton`
     // value works.
     btn_value = btn_value + 1
@@ -31,7 +31,7 @@ function loading_button(id, label, class_name, style, loading_label, loading_cla
   // Reset button to original state
   Shiny.addCustomMessageHandler('reset_loading_button', function(message) {
 
-    var loading_button = $('#loading_button-' + message.id)
+    var loading_button = $("#" + message.id)
 
     loading_button.attr('disabled', false);
     loading_button.html(label);

@@ -25,7 +25,7 @@ loading_button <- function(id,
 
   htmltools::tagList(
     tags$button(
-      id = paste0("loading_button-", id),
+      id = id,
       class = class,
       style = style,
       label
