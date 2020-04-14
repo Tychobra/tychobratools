@@ -44,9 +44,9 @@ function loading_button(id, label, class_name, style, loading_label, loading_cla
   });
   
   // Reset button to original state w/ JS command 
-  $(document).on("tychobratools:reset_loading_button", function(event, param1) {
-    reset_loading(input_id)
+  $(document).on("tychobratools:reset_loading_button_" + id, function(event) {
+    reset_loading(id)
   })
-  //$(document).trigger("tychobratools:reset_loading_button", ["my_input"])
+  // $(document).trigger("tychobratools:reset_loading_button_" + "my_input")
   
 }
