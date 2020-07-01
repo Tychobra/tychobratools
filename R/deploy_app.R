@@ -31,7 +31,7 @@ deploy_app <- function(
   instance_name,
   project_name,
   project_zone,
-  gcloud = '/usr/local/bin/google-cloud-sdk/bin'
+  gcloud = NULL
 ) {
 
   if (!is.null(gcloud)) {
