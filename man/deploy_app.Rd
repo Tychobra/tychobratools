@@ -9,7 +9,7 @@ deploy_app(
   instance_name,
   project_name,
   project_zone,
-  gcloud = "/usr/local/bin/google-cloud-sdk/bin"
+  gcloud = NULL
 )
 }
 \arguments{
