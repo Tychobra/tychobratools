@@ -45,29 +45,31 @@ deploy_app <- function(
   # create new "restart.txt" file so that the app automatically restarts once deployed
   write(NULL, file = "shiny_app/restart.txt")
 
+  cat("Setting default GCP Project...")
+  
   # gcloud so set the project
   command_set_proj <- paste0("gcloud config set project ", project_name)
   system(command_set_proj)
 
-  cat("Setting default GCP Project...")
+  cat("Removing old deployment directory...")
 
   # gcloud SSH command to remove app if it already exists
   command_1 <- paste0("if [ -d /srv/shiny-server/", deployed_dir_name, " ]; then sudo rm -rf /srv/shiny-server/", deployed_dir_name, "; fi")
   command_arg <- paste0('--command="', command_1, '"')
   system2("gcloud", args = c("compute", "ssh", instance_name, "--zone", project_zone, command_arg))
 
-  cat("Removing old deployment directory...")
+  cat("Creating new deployment directory...")
 
   # Create the target directory to copy into. This doesn't seem like it should be necessary,
   # but gcloud scp has a problem if it doesn't exist.
   command_mkdir = paste0('--command="mkdir /srv/shiny-server/', deployed_dir_name, '"')
   system2("gcloud", args = c("compute", "ssh", instance_name, "--zone", project_zone, command_mkdir))
 
-  cat("Creating new deployment directory...")
+  cat("Deploying application...")
   
   # gcloud SCP command to copy local contents in 'shiny_app' directory to new 'deployed_dir_name' directory in VM
   instance_command <- paste0('"', instance_name, ':/srv/shiny-server/', deployed_dir_name, '"')
   system2("gcloud", args = c("compute", "scp", "--recurse", file.path("shiny_app", "*"), instance_command, "--zone", project_zone))
   
-  cat("Deploying application...")
+  cat("Application deployed!")
 }
