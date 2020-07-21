@@ -5,7 +5,7 @@
 \title{Deploy Shiny application}
 \usage{
 deploy_app(
-  deployment_type,
+  env = "production",
   deployed_dir_name,
   instance_name,
   project_id,
@@ -14,7 +14,8 @@ deploy_app(
 )
 }
 \arguments{
-\item{deployment_type}{Name of configuration in `config.yml` to use for deployed app}
+\item{env}{Character string name of configuration environment in `config.yml` to
+use for deployed app. e.g. "production" or "default".}
 
 \item{deployed_dir_name}{Name of the directory in the VM instance for this app}
 
@@ -35,7 +36,7 @@ that directory should be in the Current Working Directory.
 
 \dontrun{
   deploy_app(
-    deployment_type = 'production',
+    env = 'production',
     deployed_dir_name = 'example_app',
     instance_name = 'instance-1',
     project_id = 'gcp-project-id',

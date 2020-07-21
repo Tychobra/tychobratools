@@ -4,7 +4,8 @@
 #' Currently, this function MUST be run with the application in a `shiny_app` directory, &
 #' that directory should be in the Current Working Directory.
 #'
-#' @param deployment_type Name of configuration in `config.yml` to use for deployed app
+#' @param env Character string name of configuration environment in `config.yml` to
+#' use for deployed app. e.g. "production" or "default".
 #' @param deployed_dir_name Name of the directory in the VM instance for this app
 #' @param instance_name The name of the VM instance
 #' @param project_id The name of the GCP project for this VM instance
@@ -18,7 +19,7 @@
 #'
 #' \dontrun{
 #'   deploy_app(
-#'     deployment_type = 'production',
+#'     env = 'production',
 #'     deployed_dir_name = 'example_app',
 #'     instance_name = 'instance-1',
 #'     project_id = 'gcp-project-id',
@@ -29,7 +30,7 @@
 #'
 #'
 deploy_app <- function(
-  deployment_type,
+  env = "production",
   deployed_dir_name,
   instance_name,
   project_id,
@@ -41,18 +42,18 @@ deploy_app <- function(
     Sys.setenv(PATH = paste(Sys.getenv('PATH'), gcloud, sep = ":"))
   }
 
-  if (is.null(deployment_type)) {
-    stop("Argument `deployment_type` is NULL")
+  if (is.null(env)) {
+    stop("Argument `env` is NULL")
   }
-  
+
   if (is.null(deployed_dir_name)) {
     stop("Argument `deployed_dir_name` is NULL")
   }
 
   cat("Writing R Environment file...\n")
-  
+
   # create `.Renviron` file to set configuration
-  config_type <- paste0("R_CONFIG_ACTIVE=", deployment_type)
+  config_type <- paste0("R_CONFIG_ACTIVE=", env)
   
   app_files <- list.files(path = 'shiny_app', all.files = TRUE)
   # Check if .Renviron file already exists. If so, add R_CONFIG_ACTIVE to file
@@ -62,12 +63,12 @@ deploy_app <- function(
   } else {
     write(config_type, file = "shiny_app/.Renviron")
   }
-  
+
   # create new "restart.txt" file so that the app automatically restarts once deployed
   write(NULL, file = "shiny_app/restart.txt")
 
   cat("Setting default GCP Project...\n")
-  
+
   # gcloud so set the project
   command_set_proj <- paste0("gcloud config set project ", project_id)
   system(command_set_proj)
@@ -87,13 +88,13 @@ deploy_app <- function(
   system2("gcloud", args = c("compute", "ssh", instance_name, "--zone", project_zone, command_mkdir))
 
   cat("Deploying application...\n")
-  
+
   # gcloud SCP command to copy local contents in 'shiny_app' directory to new 'deployed_dir_name' directory in VM
   instance_command <- paste0('"', instance_name, ':/srv/shiny-server/', deployed_dir_name, '"')
   system2("gcloud", args = c("compute", "scp", "--recurse", "--scp-flag=shiny_app/.Renviron", file.path("shiny_app", "*"), instance_command, "--zone", project_zone))
-  
+
   cat("Erasing local R Environment file...\n")
-  
+
   file.remove('shiny_app/.Renviron')
   
   # If .Renviron file existed before, rewrite it
@@ -102,6 +103,6 @@ deploy_app <- function(
       write(line, file = 'shiny_app/.Renviron', append = TRUE)
     }
   }
-  
+
   cat("Application deployed!")
 }
