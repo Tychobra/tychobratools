@@ -7,7 +7,7 @@
 #' @param deployment_type Name of configuration in `config.yml` to use for deployed app
 #' @param deployed_dir_name Name of the directory in the VM instance for this app
 #' @param instance_name The name of the VM instance
-#' @param project_name The name of the GCP project for this VM instance
+#' @param project_id The name of the GCP project for this VM instance
 #' @param project_zone The zone of the GCP project for this VM instance
 #' @param gcloud Absolute path for gcloud CLI (Ex: `/usr/local/bin/google-cloud-sdk/bin`)
 #'
@@ -21,7 +21,7 @@
 #'     deployment_type = 'production',
 #'     deployed_dir_name = 'example_app',
 #'     instance_name = 'instance-1',
-#'     project_name = 'gcp-project',
+#'     project_id = 'gcp-project-id',
 #'     project_zone = 'us-east1-d',
 #'     gcloud = '/usr/local/bin/google-cloud-sdk/bin'
 #'   )
@@ -32,7 +32,7 @@ deploy_app <- function(
   deployment_type,
   deployed_dir_name,
   instance_name,
-  project_name,
+  project_id,
   project_zone,
   gcloud = NULL
 ) {
@@ -61,7 +61,7 @@ deploy_app <- function(
   cat("Setting default GCP Project...\n")
   
   # gcloud so set the project
-  command_set_proj <- paste0("gcloud config set project ", project_name)
+  command_set_proj <- paste0("gcloud config set project ", project_id)
   system(command_set_proj)
 
   cat("Removing old deployment directory...\n")
