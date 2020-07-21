@@ -12,6 +12,7 @@
 #' @param project_zone The zone of the GCP project for this VM instance
 #' @param gcloud Absolute path for gcloud CLI (Ex: `/usr/local/bin/google-cloud-sdk/bin`)
 #'
+#' @importFrom utils read.delim2
 #'
 #' @export
 #'
