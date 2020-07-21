@@ -4,6 +4,7 @@
 #' Currently, this function MUST be run with the application in a `shiny_app` directory, &
 #' that directory should be in the Current Working Directory.
 #'
+#' @param deployment_type Name of configuration in `config.yml` to use for deployed app
 #' @param deployed_dir_name Name of the directory in the VM instance for this app
 #' @param instance_name The name of the VM instance
 #' @param project_name The name of the GCP project for this VM instance
@@ -17,6 +18,7 @@
 #'
 #' \dontrun{
 #'   deploy_app(
+#'     deployment_type = 'production',
 #'     deployed_dir_name = 'example_app',
 #'     instance_name = 'instance-1',
 #'     project_name = 'gcp-project',
@@ -27,6 +29,7 @@
 #'
 #'
 deploy_app <- function(
+  deployment_type,
   deployed_dir_name,
   instance_name,
   project_name,
@@ -38,10 +41,20 @@ deploy_app <- function(
     Sys.setenv(PATH = paste(Sys.getenv('PATH'), gcloud, sep = ":"))
   }
 
+  if (is.null(deployment_type)) {
+    stop("Argument `deployment_type` is NULL")
+  }
+  
   if (is.null(deployed_dir_name)) {
     stop("Argument `deployed_dir_name` is NULL")
   }
 
+  cat("Writing R Environment file...\n")
+  
+  # create `.Renviron` file to set configuration
+  config_type <- paste0("R_CONFIG_ACTIVE=", deployment_type) #TODO: MAY need newline?
+  write(config_type, file = "shiny_app/.Renviron")
+  
   # create new "restart.txt" file so that the app automatically restarts once deployed
   write(NULL, file = "shiny_app/restart.txt")
 
@@ -70,6 +83,10 @@ deploy_app <- function(
   # gcloud SCP command to copy local contents in 'shiny_app' directory to new 'deployed_dir_name' directory in VM
   instance_command <- paste0('"', instance_name, ':/srv/shiny-server/', deployed_dir_name, '"')
   system2("gcloud", args = c("compute", "scp", "--recurse", file.path("shiny_app", "*"), instance_command, "--zone", project_zone))
+  
+  cat("Erasing local R Environment file...\n")
+  
+  file.remove('shiny_app/.Renviron')
   
   cat("Application deployed!")
 }
