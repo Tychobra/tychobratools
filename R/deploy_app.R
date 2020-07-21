@@ -55,11 +55,11 @@ deploy_app <- function(
 
   # create `.Renviron` file to set configuration
   config_type <- paste0("R_CONFIG_ACTIVE=", env)
-  
-  app_files <- list.files(path = 'shiny_app', all.files = TRUE)
+
+  renviron_exists <- file.exists('shiny_app/.Renviron')
   # Check if .Renviron file already exists. If so, add R_CONFIG_ACTIVE to file
-  if (".Renviron" %in% app_files) {
-    hold_r_environ <- read.delim2(file = 'shiny_app/.Renviron', header = FALSE, sep = "\n", stringsAsFactors = FALSE)
+  if (isTRUE(renviron_exists)) {
+    hold_renviron <- read.delim2(file = 'shiny_app/.Renviron', header = FALSE, sep = "\n", stringsAsFactors = FALSE)
     write(config_type, file = "shiny_app/.Renviron", append = TRUE)
   } else {
     write(config_type, file = "shiny_app/.Renviron")
@@ -99,8 +99,8 @@ deploy_app <- function(
   file.remove('shiny_app/.Renviron')
   
   # If .Renviron file existed before, rewrite it
-  if (".Renviron" %in% app_files) {
-    for (line in hold_r_environ$V1) {
+  if (isTRUE(renviron_exists)) {
+    for (line in hold_renviron$V1) {
       write(line, file = 'shiny_app/.Renviron', append = TRUE)
     }
   }
