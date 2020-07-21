@@ -52,8 +52,16 @@ deploy_app <- function(
   cat("Writing R Environment file...\n")
   
   # create `.Renviron` file to set configuration
-  config_type <- paste0("R_CONFIG_ACTIVE=", deployment_type) #TODO: MAY need newline?
-  write(config_type, file = "shiny_app/.Renviron")
+  config_type <- paste0("R_CONFIG_ACTIVE=", deployment_type)
+  
+  app_files <- list.files(path = 'shiny_app', all.files = TRUE)
+  # Check if .Renviron file already exists. If so, add R_CONFIG_ACTIVE to file
+  if (".Renviron" %in% app_files) {
+    hold_r_environ <- read.delim2(file = 'shiny_app/.Renviron', header = FALSE, sep = "\n", stringsAsFactors = FALSE)
+    write(config_type, file = "shiny_app/.Renviron", append = TRUE)
+  } else {
+    write(config_type, file = "shiny_app/.Renviron")
+  }
   
   # create new "restart.txt" file so that the app automatically restarts once deployed
   write(NULL, file = "shiny_app/restart.txt")
@@ -87,6 +95,13 @@ deploy_app <- function(
   cat("Erasing local R Environment file...\n")
   
   file.remove('shiny_app/.Renviron')
+  
+  # If .Renviron file existed before, rewrite it
+  if (".Renviron" %in% app_files) {
+    for (line in hold_r_environ$V1) {
+      write(line, file = 'shiny_app/.Renviron', append = TRUE)
+    }
+  }
   
   cat("Application deployed!")
 }
