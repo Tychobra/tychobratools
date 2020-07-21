@@ -5,19 +5,22 @@
 \title{Deploy Shiny application}
 \usage{
 deploy_app(
+  deployment_type,
   deployed_dir_name,
   instance_name,
-  project_name,
+  project_id,
   project_zone,
   gcloud = NULL
 )
 }
 \arguments{
+\item{deployment_type}{Name of configuration in `config.yml` to use for deployed app}
+
 \item{deployed_dir_name}{Name of the directory in the VM instance for this app}
 
 \item{instance_name}{The name of the VM instance}
 
-\item{project_name}{The name of the GCP project for this VM instance}
+\item{project_id}{The name of the GCP project for this VM instance}
 
 \item{project_zone}{The zone of the GCP project for this VM instance}
 
@@ -32,9 +35,10 @@ that directory should be in the Current Working Directory.
 
 \dontrun{
   deploy_app(
+    deployment_type = 'production',
     deployed_dir_name = 'example_app',
     instance_name = 'instance-1',
-    project_name = 'gcp-project',
+    project_id = 'gcp-project-id',
     project_zone = 'us-east1-d',
     gcloud = '/usr/local/bin/google-cloud-sdk/bin'
   )
