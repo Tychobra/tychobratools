@@ -42,8 +42,8 @@ deploy_app <- function(
     Sys.setenv(PATH = paste(Sys.getenv('PATH'), gcloud, sep = ":"))
   }
 
-  if (is.null(deployment_type)) {
-    stop("Argument `deployment_type` is NULL")
+  if (is.null(env)) {
+    stop("Argument `env` is NULL")
   }
 
   if (is.null(deployed_dir_name)) {
@@ -53,7 +53,7 @@ deploy_app <- function(
   cat("Writing R Environment file...\n")
 
   # create `.Renviron` file to set configuration
-  config_type <- paste0("R_CONFIG_ACTIVE=", deployment_type) #TODO: MAY need newline?
+  config_type <- paste0("R_CONFIG_ACTIVE=", env) #TODO: MAY need newline?
   write(config_type, file = "shiny_app/.Renviron")
 
   # create new "restart.txt" file so that the app automatically restarts once deployed
