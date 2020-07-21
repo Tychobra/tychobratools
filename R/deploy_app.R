@@ -82,7 +82,7 @@ deploy_app <- function(
   
   # gcloud SCP command to copy local contents in 'shiny_app' directory to new 'deployed_dir_name' directory in VM
   instance_command <- paste0('"', instance_name, ':/srv/shiny-server/', deployed_dir_name, '"')
-  system2("gcloud", args = c("compute", "scp", "--recurse", file.path("shiny_app", "*"), instance_command, "--zone", project_zone))
+  system2("gcloud", args = c("compute", "scp", "--recurse", "--scp-flag=shiny_app/.Renviron", file.path("shiny_app", "*"), instance_command, "--zone", project_zone))
   
   cat("Erasing local R Environment file...\n")
   
