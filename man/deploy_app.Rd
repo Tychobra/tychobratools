@@ -10,7 +10,8 @@ deploy_app(
   instance_name,
   project_id,
   project_zone,
-  gcloud = NULL
+  gcloud = NULL,
+  app_dir = "shiny_app"
 )
 }
 \arguments{
@@ -26,6 +27,8 @@ use for deployed app. e.g. "production" or "default".}
 \item{project_zone}{The zone of the GCP project for this VM instance}
 
 \item{gcloud}{Absolute path for gcloud CLI (Ex: `/usr/local/bin/google-cloud-sdk/bin`)}
+
+\item{app_dir}{the local directory containing the shiny app.  Defaults to "shiny_app".}
 }
 \description{
 Deploy a Shiny application to a GCP VM instance (Must have gcloud on local machine).

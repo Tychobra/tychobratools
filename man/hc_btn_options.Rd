@@ -13,12 +13,16 @@ options to only include specific download buttons in the highcharter download bu
 library(highcharter)
 
 # must be opened in a browser to work
-hchart(rnorm(100)) \%>\%
-  hc_exporting(
+
+\dontrun{
+highcharter::hchart(rnorm(100)) \%>\%
+  highcharter::hc_exporting(
     enabled = TRUE,
     filename = "example-file",
     formAttributes = list(target = "_blank"),
     buttons = hc_btn_options()
   )
+}
+
 
 }

@@ -13,19 +13,12 @@ Imports:
     shiny,
     htmltools,
     lubridate,
-    DBI,
     devtools,
-    RPostgres,
     shinydashboard,
     htmlwidgets,
     rstudioapi,
-    utils,
-    grDevices,
-    shinytoastr,
-    pool
+    utils
 Suggests:
-    RSQLite,
     highcharter,
-    dplyr,
-    dbplyr
+    dplyr
 RoxygenNote: 7.1.1
