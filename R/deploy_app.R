@@ -11,6 +11,7 @@
 #' @param project_id The name of the GCP project for this VM instance
 #' @param project_zone The zone of the GCP project for this VM instance
 #' @param gcloud Absolute path for gcloud CLI (Ex: `/usr/local/bin/google-cloud-sdk/bin`)
+#' @param app_dir the local directory containing the shiny app.  Defaults to "shiny_app".
 #'
 #' @importFrom utils read.delim2
 #'
@@ -36,7 +37,8 @@ deploy_app <- function(
   instance_name,
   project_id,
   project_zone,
-  gcloud = NULL
+  gcloud = NULL,
+  app_dir = "shiny_app"
 ) {
 
   if (!is.null(gcloud)) {
@@ -56,17 +58,19 @@ deploy_app <- function(
   # create `.Renviron` file to set configuration
   config_type <- paste0("R_CONFIG_ACTIVE=", env)
 
-  renviron_exists <- file.exists('shiny_app/.Renviron')
+  r_environ_path <- file.path(app_dir, '.Renviron')
+
+  renviron_exists <- file.exists(r_environ_path)
   # Check if .Renviron file already exists. If so, add R_CONFIG_ACTIVE to file
   if (isTRUE(renviron_exists)) {
-    hold_renviron <- read.delim2(file = 'shiny_app/.Renviron', header = FALSE, sep = "\n", stringsAsFactors = FALSE)
-    write(config_type, file = "shiny_app/.Renviron", append = TRUE)
+    hold_renviron <- read.delim2(file = r_environ_path, header = FALSE, sep = "\n", stringsAsFactors = FALSE)
+    write(config_type, file = r_environ_path, append = TRUE)
   } else {
-    write(config_type, file = "shiny_app/.Renviron")
+    write(config_type, file = r_environ_path)
   }
 
   # create new "restart.txt" file so that the app automatically restarts once deployed
-  write(NULL, file = "shiny_app/restart.txt")
+  write(NULL, file = file.path(app_dir, "restart.txt"))
 
   cat("Setting default GCP Project...\n")
 
@@ -92,16 +96,16 @@ deploy_app <- function(
 
   # gcloud SCP command to copy local contents in 'shiny_app' directory to new 'deployed_dir_name' directory in VM
   instance_command <- paste0('"', instance_name, ':/srv/shiny-server/', deployed_dir_name, '"')
-  system2("gcloud", args = c("compute", "scp", "--recurse", "--scp-flag=shiny_app/.Renviron", file.path("shiny_app", "*"), instance_command, "--zone", project_zone))
+  system2("gcloud", args = c("compute", "scp", "--recurse", paste0("--scp-flag=", app_dir, "/.Renviron"), file.path(app_dir, "*"), instance_command, "--zone", project_zone))
 
   cat("Erasing local R Environment file...\n")
 
-  file.remove('shiny_app/.Renviron')
-  
+  file.remove(r_environ_path)
+
   # If .Renviron file existed before, rewrite it
   if (isTRUE(renviron_exists)) {
     for (line in hold_renviron$V1) {
-      write(line, file = 'shiny_app/.Renviron', append = TRUE)
+      write(line, file = r_environ_path, append = TRUE)
     }
   }
 
