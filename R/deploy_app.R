@@ -93,7 +93,7 @@ deploy_app <- function(
   system2("gcloud", args = c("compute", "ssh", instance_name, "--zone", project_zone, command_mkdir))
 
   # Update permissions for new directory
-  command_perm <- paste0('--command="chown shiny:shiny /srv/shiny-server/', deployed_dir_name, '"')
+  command_perm <- paste0('--command="sudo chown shiny:shiny /srv/shiny-server/', deployed_dir_name, '"')
   system2("gcloud", args = c("compute", "ssh", instance_name, "--zone", project_zone, command_perm))
 
   cat("Deploying application...\n")
