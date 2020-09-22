@@ -92,15 +92,15 @@ deploy_app <- function(
   command_mkdir = paste0('--command="mkdir /srv/shiny-server/', deployed_dir_name, '"')
   system2("gcloud", args = c("compute", "ssh", instance_name, "--zone", project_zone, command_mkdir))
 
-  # Update permissions for new directory
-  command_perm <- paste0('--command="chown shiny:shiny /srv/shiny-server/', deployed_dir_name, '"')
-  system2("gcloud", args = c("compute", "ssh", instance_name, "--zone", project_zone, command_perm))
-
   cat("Deploying application...\n")
 
   # gcloud SCP command to copy local contents in 'shiny_app' directory to new 'deployed_dir_name' directory in VM
   instance_command <- paste0('"', instance_name, ':/srv/shiny-server/', deployed_dir_name, '"')
   system2("gcloud", args = c("compute", "scp", "--recurse", paste0("--scp-flag=", app_dir, "/.Renviron"), file.path(app_dir, "*"), instance_command, "--zone", project_zone))
+
+  # Update permissions for new directory
+  command_perm <- paste0('--command="sudo chown -R shiny:shiny /srv/shiny-server/', deployed_dir_name, '"')
+  system2("gcloud", args = c("compute", "ssh", instance_name, "--zone", project_zone, command_perm))
 
   cat("Erasing local R Environment file...\n")
 
