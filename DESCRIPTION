@@ -29,6 +29,7 @@ Imports:
     rstudioapi,
     utils,
     usethis,
+    shinycssloaders
 Suggests:
     highcharter,
     dplyr
