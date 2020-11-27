@@ -1,14 +1,24 @@
 Package: tychobratools
 Type: Package
 Title: Some customizations for R and Shiny
-Version: 0.0.1.9002
-Author: person("Andy", "Merlino", email = "andy.merlino@tychobra.com", role = c("aut", "cre"))
+Version: 0.0.1.9003
+Authors@R: 
+    c(person(given = "Andy",
+             family = "Merlino",
+             role = c("aut", "cre"),
+             email = "andy.merlino@tychobra.com"),
+      person(given = "Jimmy",
+             family = "Briggs",
+             role = "ctb",
+             email = "jimmy.briggs@tychobra.com"))
 Maintainer: Andy Merlino <andy.merlino@tychobra.com>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Description: A suite of commonly used tools and functions for Tychobra and its 
+  developers.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
+Depends:
+    R (>= 2.10)
 Imports:
     shiny,
     htmltools,
@@ -17,7 +27,8 @@ Imports:
     shinydashboard,
     htmlwidgets,
     rstudioapi,
-    utils
+    utils,
+    usethis,
 Suggests:
     highcharter,
     dplyr
