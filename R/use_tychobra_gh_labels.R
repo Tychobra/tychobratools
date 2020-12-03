@@ -11,7 +11,7 @@
 use_tychobra_gh_labels <- function(...) {
 
   usethis::use_github_labels(
-    labels = tychobra_gh_labels$name,
+    labels = tychobra_gh_labels$label,
     colours = tychobra_gh_labels$color,
     descriptions = tychobra_gh_labels$description,
     ...
