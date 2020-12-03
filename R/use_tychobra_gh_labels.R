@@ -10,9 +10,13 @@
 #' @importFrom usethis use_github_labels
 use_tychobra_gh_labels <- function(...) {
 
+  # adjust colors
+  colors <- gsub("#", "", c(tychobra_gh_labels$color))
+  names(colors) <- tychobra_gh_labels$label
+
   usethis::use_github_labels(
-    labels = tychobra_gh_labels$name,
-    colours = tychobra_gh_labels$color,
+    labels = tychobra_gh_labels$label,
+    colours = colors,
     descriptions = tychobra_gh_labels$description,
     ...
   )
