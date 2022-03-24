@@ -55,7 +55,7 @@ contact_ui <- function(contacts = list(
               htmltools::tags$i(
                 class = "fa fa-phone"
               ),
-              href = "#",
+              href = paste0("tel:", contact_info$phone),
               contact_info$phone
             )
           ),
