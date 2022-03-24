@@ -22,7 +22,7 @@ contact_ui <- function(contacts = list(
   htmltools::tags$li(
     class = "dropdown",
     htmltools::tags$a(
-      href="#",
+      href = "#",
       class = "dropdown-toggle",
       `data-toggle` = "dropdown",
       htmltools::tags$div(
@@ -58,8 +58,7 @@ contact_ui <- function(contacts = list(
               href = paste0("tel:", contact_info$phone),
               contact_info$phone
             )
-          ),
-          htmltools::tags$hr()
+          )
         )
       })
     )
