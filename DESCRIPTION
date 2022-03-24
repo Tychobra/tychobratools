@@ -7,10 +7,10 @@ Authors@R:
              family = "Merlino",
              role = c("aut", "cre"),
              email = "andy.merlino@tychobra.com"),
-      person(given = "Jimmy",
-             family = "Briggs",
-             role = "ctb",
-             email = "jimmy.briggs@tychobra.com"))
+      person(given = "Patrick",
+             family = "Howard",
+             role = "aut",
+             email = "patrick.howard@tychobra.com"))
 Maintainer: Andy Merlino <andy.merlino@tychobra.com>
 Description: A suite of commonly used tools and functions for Tychobra and its 
   developers.
@@ -33,4 +33,4 @@ Imports:
 Suggests:
     highcharter,
     dplyr
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2

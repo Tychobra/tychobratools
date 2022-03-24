@@ -4,11 +4,7 @@
 \alias{with_tychobra_spinner}
 \title{With Tychobra Spinner}
 \usage{
-with_tychobra_spinner(
-  obj,
-  src = system.file("assets/tychobra_spinner.gif", package = "tychobratools"),
-  ...
-)
+with_tychobra_spinner(obj, src = "tychobra_spinner.gif", ...)
 }
 \arguments{
 \item{obj}{A UI element that should be wrapped with a spinner when the

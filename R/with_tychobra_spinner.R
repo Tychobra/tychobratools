@@ -13,12 +13,18 @@
 #'
 #' @export
 #'
+#' @importFrom shiny addResourcePath
 #' @importFrom shinycssloaders withSpinner
-with_tychobra_spinner <- function(obj,
-                                  src = system.file('assets/tychobra_spinner.gif', package = "tychobratools"),
-                                  ...) {
+#'
+with_tychobra_spinner <- function(
+  obj,
+  src = "tychobra_spinner.gif",
+  ...
+) {
+  shiny::addResourcePath("tychtools", system.file("assets", package = "tychobratools"))
 
-  shinycssloaders::withSpinner(ui_element = obj, image = src, ...)
+  src_out <- file.path("tychtools", src)
 
+  shinycssloaders::withSpinner(ui_element = obj, image = src_out, ...)
 }
 
